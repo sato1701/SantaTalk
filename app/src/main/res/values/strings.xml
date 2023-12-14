@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">SantaTalk</string>
+
+    <string-array name="category_array">
+        <item>名詞</item>
+        <item>動詞</item>
+        <item>形容詞</item>
+    </string-array>
+
+    <string-array name="detail_noun_array">
+        <item>代名詞</item>
+        <item>数詞</item>
+        <item>固有名詞</item>
+        <item>一般名詞</item>
+    </string-array>
+
+    <string-array name="noun_people_array">
+        <item>私</item>
+        <item>あなた</item>
+        <item>彼(彼ら)</item>
+        <item>これ(あれ)</item>
+    </string-array>
+
 </resources>
