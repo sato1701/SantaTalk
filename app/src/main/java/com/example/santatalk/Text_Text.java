@@ -1,14 +1,18 @@
 package com.example.santatalk;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Scroller;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -25,8 +29,10 @@ public class Text_Text extends Fragment {
     public Spinner Category_spinner;
     public Spinner Detail_spinner;
 
-    public Scroller Select_Word_scroll;
+    public ScrollView Select_Word_scroll;
 
+    // buttonのコンテナ
+    public static LinearLayout buttonContainer;
     public Button[] Words_button;
 
     Text_Text(com.example.santatalk.View view){
@@ -38,6 +44,7 @@ public class Text_Text extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Fragmentのレイアウトをインフレート
         View tmpView = inflater.inflate(R.layout.fragment_t_t, container, false);
+
         //Spinnerの取得
         Category_spinner = tmpView.findViewById(R.id.Category_spinner);
 
@@ -53,6 +60,10 @@ public class Text_Text extends Fragment {
         // アダプターをSpinnerに設定
         Category_spinner.setAdapter(Category_adapter);
 
+        // Custom listenerを作成
+        OnItemSelectListener onItemSelectedListener = new OnItemSelectListener(view.conText_main, buttonContainer);
+
+        Category_spinner.setOnItemSelectedListener(onItemSelectedListener);
 
 
         //Spinnerの取得
@@ -70,7 +81,37 @@ public class Text_Text extends Fragment {
         // アダプターをSpinnerに設定
         Detail_spinner.setAdapter(Detail_adapter);
 
+        //buttonの処理
+        Select_Word_scroll = tmpView.findViewById(R.id.Select_Word_scroll);
+        buttonContainer = Select_Word_scroll.findViewById(R.id.buttonContainer);
+//        generateButton(view.conText_main, buttonContainer, Category_spinner.getSelectedItem().toString());
+
+
+
+
+
         return tmpView;
     }
 
+    // Spinnerで選択された要素に応じてボタンを生成するメソッド
+    public static void generateButton(Context context,LinearLayout buttonContainer, String selectedOption){
+        // 既存のボタンがあれば削除
+        buttonContainer.removeAllViews();
+
+        // ボタンを生成
+        Button dynamicButton = new Button(context);
+        dynamicButton.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        dynamicButton.setText("Dynamic Button for " + selectedOption);
+
+        // ボタンがクリックされたときの処理
+        dynamicButton.setOnClickListener(v -> {
+            Toast.makeText(context, "Dynamic Button Clicked for " + selectedOption, Toast.LENGTH_SHORT).show();
+            // ここにボタンがクリックされたときの追加の処理を記述
+        });
+
+        // ボタンをレイアウトに追加
+        buttonContainer.addView(dynamicButton);
+    }
 }
