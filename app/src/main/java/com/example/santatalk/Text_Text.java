@@ -60,13 +60,13 @@ public class Text_Text extends Fragment {
         // アダプターをSpinnerに設定
         Category_spinner.setAdapter(Category_adapter);
 
-        // Custom listenerを作成
+        // OnItemSelectListenerを作成
         OnItemSelectListener onItemSelectedListener = new OnItemSelectListener(view.conText_main, buttonContainer);
 
         Category_spinner.setOnItemSelectedListener(onItemSelectedListener);
 
 
-        //Spinnerの取得
+        // Spinnerの取得
         Detail_spinner = tmpView.findViewById(R.id.Detail_spinner);
 
         // ArrayAdapterを作成し、Spinnerに設定
@@ -81,10 +81,12 @@ public class Text_Text extends Fragment {
         // アダプターをSpinnerに設定
         Detail_spinner.setAdapter(Detail_adapter);
 
+
+
         //buttonの処理
         Select_Word_scroll = tmpView.findViewById(R.id.Select_Word_scroll);
         buttonContainer = Select_Word_scroll.findViewById(R.id.buttonContainer);
-//        generateButton(view.conText_main, buttonContainer, Category_spinner.getSelectedItem().toString());
+        generateButton(view.conText_main, buttonContainer, Category_spinner.getSelectedItem().toString());
 
 
 
@@ -92,6 +94,40 @@ public class Text_Text extends Fragment {
 
         return tmpView;
     }
+
+//TODO
+    // making
+//    private static void updateSecondSpinner(Context context, Spinner secondSpinner, String selectedOption){
+//// 2つめのSpinnerにアダプターを設定
+//        ArrayAdapter<CharSequence> secondAdapter;
+//        if ("Option 1".equals(selectedOption)) {
+//            secondAdapter = ArrayAdapter.createFromResource(
+//                    context,
+//                    R.array.second_spinner_options_option1,
+//                    android.R.layout.simple_spinner_item
+//            );
+//        } else if ("Option 2".equals(selectedOption)) {
+//            secondAdapter = ArrayAdapter.createFromResource(
+//                    context,
+//                    R.array.second_spinner_options_option2,
+//                    android.R.layout.simple_spinner_item
+//            );
+//        } else {
+//            // Default case, you can handle other options as needed
+//            secondAdapter = ArrayAdapter.createFromResource(
+//                    context,
+//                    R.array.default_second_spinner_options,
+//                    android.R.layout.simple_spinner_item
+//            );
+//        }
+
+        secondAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        secondSpinner.setAdapter(secondAdapter);
+
+
+    }
+
+
 
     // Spinnerで選択された要素に応じてボタンを生成するメソッド
     public static void generateButton(Context context,LinearLayout buttonContainer, String selectedOption){
