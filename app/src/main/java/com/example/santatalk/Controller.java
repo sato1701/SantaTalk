@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class Controller extends AppCompatActivity {
     Mode mode = new Mode(this);
-    Model model = new Model(this);
+    Model model = new Model(this, mode);
     View view = new View(this);
 
     //MainActivityのContextをView.javaに渡してView内でUIの変更を行えるようにする
