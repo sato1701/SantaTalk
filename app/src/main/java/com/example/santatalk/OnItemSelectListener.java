@@ -18,13 +18,16 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
     public static Context conText_main;
     public static View tmpView;
     public static com.example.santatalk.View _view;
+
+    public static Mode mode;
     public String Identifier;
 
-    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner) {
+    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner,Mode mode) {
         setConText(ct);
         Identifier = Spinner;
         this.tmpView = view;
         this._view = _view;
+        this.mode = mode;
     }
 
 
@@ -36,25 +39,25 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        //Spinnerで選択された要素に応じてボタンを再生成
-        String selectedCategory = Text_Text.Category_spinner.getItemAtPosition(position).toString();
-        int pos = Text_Text.Detail_spinner.getCount() - 1;
-        Log.d("OnItemSelectListener", "Count " + pos);
-        if(pos < position){
-            position = pos;
+        if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS) {
+            //Spinnerで選択された要素に応じてボタンを再生成
+            String selectedCategory = Text_Text.Category_spinner.getItemAtPosition(position).toString();
+            int pos = Text_Text.Detail_spinner.getCount() - 1;
+            Log.d("OnItemSelectListener", "Count " + pos);
+            if (pos < position) {
+                position = pos;
+            }
+
+            String selectedDetail = Text_Text.Detail_spinner.getItemAtPosition(position).toString();
+
+
+            if (Identifier == "Category") {
+                updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedCategory);
+            } else if (Identifier == "Detail") {
+                generateButton(conText_main, tmpView, _view, Text_Text.buttonContainer, selectedDetail);
+            }
+
         }
-
-        String selectedDetail = Text_Text.Detail_spinner.getItemAtPosition(position).toString();
-
-
-        if(Identifier == "Category"){
-            updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedCategory);
-        }
-        else if(Identifier == "Detail"){
-            generateButton(conText_main,tmpView,_view, Text_Text.buttonContainer, selectedDetail);
-        }
-
-
 
     }
 

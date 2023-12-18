@@ -7,7 +7,7 @@ public class Model {
     Mode mode;
     Dictionary dic;
     public Model(Controller controller, Mode mode) {
-        this.mode = mode;
+
     }
 
     void init() {

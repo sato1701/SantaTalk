@@ -128,5 +128,15 @@
         <item>だった</item>
     </string-array>
 
+    <string-array name="Santanish_array">
+        <item>ホ  </item>
+        <item>ホ→ </item>
+        <item>ホ⤴ </item>
+        <item>ホ⤵ </item>
+        <item>Space</item>
+        <item>init</item>
+
+    </string-array>
+
 
 </resources>
