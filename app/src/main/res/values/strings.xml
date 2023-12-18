@@ -2,8 +2,8 @@
     <string name="app_name">SantaTalk</string>
 
     <string-array name="category_array">
-        <item>名詞</item>
         <item>動詞</item>
+        <item>名詞</item>
         <item>形容詞</item>
         <item>感動詞</item>
         <item>助動詞</item>

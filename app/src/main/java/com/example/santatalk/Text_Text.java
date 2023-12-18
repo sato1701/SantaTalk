@@ -26,8 +26,8 @@ public class Text_Text extends Fragment {
     public Button Change_Lang_button;      //入力言語変更を行うボタン
 
 
-    public Spinner Category_spinner;
-    public Spinner Detail_spinner;
+    public static Spinner Category_spinner;
+    public static Spinner Detail_spinner;
 
     public ScrollView Select_Word_scroll;
 
@@ -61,7 +61,7 @@ public class Text_Text extends Fragment {
         Category_spinner.setAdapter(Category_adapter);
 
         // OnItemSelectListenerを作成
-        OnItemSelectListener onItemSelectedListener = new OnItemSelectListener(view.conText_main, buttonContainer);
+        OnItemSelectListener onItemSelectedListener = new OnItemSelectListener(view.conText_main, buttonContainer,Category_spinner,Detail_spinner);
 
         Category_spinner.setOnItemSelectedListener(onItemSelectedListener);
 
@@ -80,8 +80,7 @@ public class Text_Text extends Fragment {
 
         // アダプターをSpinnerに設定
         Detail_spinner.setAdapter(Detail_adapter);
-
-
+        updateSecondSpinner(view.conText_main, Detail_spinner,Category_spinner.getSelectedItem().toString());
 
         //buttonの処理
         Select_Word_scroll = tmpView.findViewById(R.id.Select_Word_scroll);
@@ -95,37 +94,7 @@ public class Text_Text extends Fragment {
         return tmpView;
     }
 
-//TODO
-    // making
-//    private static void updateSecondSpinner(Context context, Spinner secondSpinner, String selectedOption){
-//// 2つめのSpinnerにアダプターを設定
-//        ArrayAdapter<CharSequence> secondAdapter;
-//        if ("Option 1".equals(selectedOption)) {
-//            secondAdapter = ArrayAdapter.createFromResource(
-//                    context,
-//                    R.array.second_spinner_options_option1,
-//                    android.R.layout.simple_spinner_item
-//            );
-//        } else if ("Option 2".equals(selectedOption)) {
-//            secondAdapter = ArrayAdapter.createFromResource(
-//                    context,
-//                    R.array.second_spinner_options_option2,
-//                    android.R.layout.simple_spinner_item
-//            );
-//        } else {
-//            // Default case, you can handle other options as needed
-//            secondAdapter = ArrayAdapter.createFromResource(
-//                    context,
-//                    R.array.default_second_spinner_options,
-//                    android.R.layout.simple_spinner_item
-//            );
-//        }
 
-        secondAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        secondSpinner.setAdapter(secondAdapter);
-
-
-    }
 
 
 
@@ -149,5 +118,39 @@ public class Text_Text extends Fragment {
 
         // ボタンをレイアウトに追加
         buttonContainer.addView(dynamicButton);
+    }
+
+    //TODO
+    // making
+    public static void updateSecondSpinner(Context context, Spinner secondSpinner, String selectedOption){
+// 2つめのSpinnerにアダプターを設定
+
+
+        ArrayAdapter<CharSequence> secondAdapter;
+        if ("名詞".equals(selectedOption)) {
+            secondAdapter = ArrayAdapter.createFromResource(
+                    context,
+                    R.array.detail_noun_array,
+                    android.R.layout.simple_spinner_item
+            );
+        } else if ("動詞".equals(selectedOption)) {
+            secondAdapter = ArrayAdapter.createFromResource(
+                    context,
+                    R.array.detail_verb_array,
+                    android.R.layout.simple_spinner_item
+            );
+        } else {
+            // Default case, you can handle other options as needed
+            secondAdapter = ArrayAdapter.createFromResource(
+                    context,
+                    R.array.detail_noun_array,
+                    android.R.layout.simple_spinner_item
+            );
+        }
+
+        secondAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        secondSpinner.setAdapter(secondAdapter);
+
+
     }
 }
