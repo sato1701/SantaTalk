@@ -15,15 +15,16 @@ import androidx.fragment.app.FragmentTransaction;
 public class View extends AppCompatActivity {
     public Context conText_main;    //MainActivityのContext
 
-    Text_Text text_text = new Text_Text(this);
-    Speech_Text speech_text = new Speech_Text(this);
+
 
 //    public View onView;
     public Controller controller;   //Controller
+    public Mode mode;
     public View thisView;
-
     public TextView Mode_Name;      //Mode_Nameを格納するTextView
     public Button Change_Mode_button;      //モード変更を行うボタン(Debug?)
+
+
 
 //
 //    public TextView Input_text;
@@ -40,11 +41,15 @@ public class View extends AppCompatActivity {
 //    public Button[] Words_button;
 
     //コンストラクタ replaceFragmentを使用したいのでcontrollerを取得しておく
-    public View(Controller controller) {
+    public View(Controller controller,Mode mode) {
         //TODO
         this.controller = controller;
         thisView = this;
+        this.mode = mode;
     }
+
+    Text_Text text_text = new Text_Text(this,mode);
+    Speech_Text speech_text = new Speech_Text(this);
 
     //アプリ起動時の初期化関数 Text to Textのレイアウトを表示する
     void init(Context conText_main) {
@@ -53,11 +58,11 @@ public class View extends AppCompatActivity {
         //MainActivityのContextを取得
         this.conText_main = conText_main;
 
-        controller.replaceFragment(new Text_Text(thisView));
+        controller.replaceFragment(new Text_Text(thisView,mode));
 
         // ボタンがクリックされた時の処理
         Change_Mode_button = ((com.example.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentOne);
-        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Text_Text(thisView)));
+        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Text_Text(thisView,mode)));
         Change_Mode_button = ((com.example.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentTwo);
         Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Speech_Text(thisView)));
 

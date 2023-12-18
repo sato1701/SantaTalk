@@ -2,7 +2,7 @@ package com.example.santatalk;
 
 public class Mode {
     private int isSpeechMode = 0;
-    private enum TRANSLATE_MODE {
+    enum TRANSLATE_MODE {
         SJtoSS,
         SStoNJ,
         NJtoSJ
@@ -11,6 +11,7 @@ public class Mode {
     private int isRecording = 0;
 
     public Mode(Controller controller) {
+        TRANSLATE_MODE translateMode = TRANSLATE_MODE.SJtoSS;
     }
 
     public boolean isRecording(){

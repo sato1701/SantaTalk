@@ -22,9 +22,11 @@
         <item>あなた</item>
         <item>彼(彼ら)</item>
         <item>これ(あれ)</item>
+        <item>init</item>
     </string-array>
     <string-array name="noun_unique_array">
         <item>"サンタ"</item>
+        <item>init</item>
     </string-array>
 
     <string-array name="noun_general_array">
@@ -56,11 +58,13 @@
         <item>"絵"</item>
         <item>"手紙"</item>
         <item>"おもちゃ"</item>
+        <item>init</item>
     </string-array>
 
     <string-array name="noun_numeral_array">
         <item>少し</item>
         <item>たくさん</item>
+        <item>init</item>
 
     </string-array>
 
@@ -75,6 +79,7 @@
         <item>寝る</item>
         <item>笑う</item>
         <item>喜ぶ</item>
+        <item>init</item>
     </string-array>
 
     <string-array name="verb_transitive_array">
@@ -88,6 +93,7 @@
         <item>かく</item>
         <item>話す</item>
         <item>感謝する</item>
+        <item>init</item>
     </string-array>
 
     <string-array name="detail_adjective_array">
@@ -101,10 +107,12 @@
         <item>よくない(好きではない)</item>
         <item>あたたかい</item>
         <item>つめたい</item>
+        <item>init</item>
     </string-array>
 
     <string-array name="adjective_expression_array">
         <item>赤い</item>
+        <item>init</item>
     </string-array>
 
 
@@ -116,6 +124,7 @@
         <item>ありがとう</item>
         <item>どういたしまして</item>
         <item>さようなら</item>
+        <item>init</item>
     </string-array>
 
 
@@ -126,6 +135,17 @@
     <string-array name="auxiliaryVerb_array">
         <item>だろう(したい)</item>
         <item>だった</item>
+        <item>init</item>
+    </string-array>
+
+    <string-array name="Santanish_array">
+        <item>ホ  </item>
+        <item>ホ→ </item>
+        <item>ホ⤴ </item>
+        <item>ホ⤵ </item>
+        <item>Space</item>
+        <item>init</item>
+
     </string-array>
 
 

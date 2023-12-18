@@ -23,11 +23,12 @@ import java.lang.reflect.Array;
 public class Text_Text extends Fragment {
 
     public Controller controller;   //Controller
+    public static Mode mode;
     public com.example.santatalk.View view;
     public TextView Input_text;
     public TextView Output_text;
 
-    public Button Change_Lang_button;      //入力言語変更を行うボタン
+    public static Button Change_Lang_button;      //入力言語変更を行うボタン
 
 
     public static Spinner Category_spinner;
@@ -37,11 +38,14 @@ public class Text_Text extends Fragment {
 
     // buttonのコンテナ
     public static LinearLayout buttonContainer;
+    public static String[] InputLang = {"Japanese","Santanish"};
+    public static int flagInputLang = 0;
 
     public static String InputText = "";
 
-    Text_Text(com.example.santatalk.View view){
+    Text_Text(com.example.santatalk.View view,Mode mode){
         this.view = view;
+        this.mode = mode;
     }
 
 
@@ -49,6 +53,7 @@ public class Text_Text extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Fragmentのレイアウトをインフレート
         View tmpView = inflater.inflate(R.layout.fragment_t_t, container, false);
+        Log.d("onCreateView","flagInputLang : "+flagInputLang);
 
         //Spinnerの取得
         Category_spinner = tmpView.findViewById(R.id.Category_spinner);
@@ -62,12 +67,12 @@ public class Text_Text extends Fragment {
         // スピナーのドロップダウンリストのレイアウトを設定
         Category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // アダプターをSpinnerに設定
+        // CategoryアダプターをCategory_Spinnerに設定
         Category_spinner.setAdapter(Category_adapter);
 
         // OnItemSelectListenerを作成
-        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main,tmpView,view,"Category");
-        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main,tmpView,view,"Detail");
+        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main, tmpView, view, "Category",mode);
+        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main, tmpView, view, "Detail",mode);
 
         Category_spinner.setOnItemSelectedListener(CategoryListener);
 
@@ -89,11 +94,49 @@ public class Text_Text extends Fragment {
         Detail_spinner.setOnItemSelectedListener(DetailListener);
 
 
-        updateSecondSpinner(view.conText_main, Detail_spinner,Category_spinner.getSelectedItem().toString());
+        updateSecondSpinner(view.conText_main, Detail_spinner, Category_spinner.getSelectedItem().toString());
 
         //buttonの処理
         Select_Word_scroll = tmpView.findViewById(R.id.Select_Word_scroll);
         buttonContainer = Select_Word_scroll.findViewById(R.id.buttonContainer);
+
+        Change_Lang_button = tmpView.findViewById(R.id.Change_Lang_button);
+        Change_Lang_button.setText("Input Language is : " + InputLang[flagInputLang]);
+        Change_Lang_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // ボタンの文字列をInputText変数に格納
+                Button clickedButton = (Button) v;
+                TextView Input_text = tmpView.findViewById(R.id.Input_text);
+                TextView Output_text = tmpView.findViewById(R.id.OutPut_text);
+                InputText = "";
+                Input_text.setText("INPUT TEXT");
+                Output_text.setText("OUTPUT TEXT");
+
+                if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS){
+                    flagInputLang = 1;
+                    mode.setTranslateMode(Mode.TRANSLATE_MODE.SStoNJ);
+                    generateButton(view.conText_main,tmpView,view,buttonContainer,"Santanish");
+                }
+                else if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SStoNJ){
+                    mode.setTranslateMode(Mode.TRANSLATE_MODE.SJtoSS);
+                    flagInputLang = 0;
+                    Category_spinner.getItemAtPosition(0);
+                    Detail_spinner.getItemAtPosition(0);
+                    generateButton(view.conText_main,tmpView,view,buttonContainer,Detail_spinner.getItemAtPosition(0).toString());
+                }
+                else{
+                    flagInputLang = 0;
+                }
+
+                Change_Lang_button.setText("Input Language is : " + InputLang[flagInputLang]);
+
+
+                // 格納された文字列を表示
+                Toast.makeText(view.conText_main, "Input Language is : " + InputLang[flagInputLang], Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return tmpView;
     }
@@ -138,6 +181,9 @@ public class Text_Text extends Fragment {
         } else if (selectedOption.equals("助動詞")) {
             buttonTexts = resources.getStringArray(R.array.auxiliaryVerb_array);
 
+        } else if (selectedOption.equals("Santanish")) {
+            buttonTexts = resources.getStringArray(R.array.Santanish_array);
+
         }
         else{
             buttonTexts = resources.getStringArray(R.array.noun_people_array);
@@ -157,12 +203,16 @@ public class Text_Text extends Fragment {
                 public void onClick(View v) {
                     // ボタンの文字列をInputText変数に格納
                     Button clickedButton = (Button) v;
-                    InputText += " " + clickedButton.getText().toString();
+                    if(clickedButton.getText().toString().equals("init")){
+                        InputText = "";
+                    } else if (clickedButton.getText().toString().equals("Space")) {
+                        InputText += " | ";
+                    } else {
+                        InputText += " " + clickedButton.getText().toString();
+                        // 格納された文字列を表示
+                        Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
 
-                    // 格納された文字列を表示
-                    Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
-
-
+                    }
                     TextView Input_text = tmpView.findViewById(R.id.Input_text);
                     TextView Output_text = tmpView.findViewById(R.id.OutPut_text);
 
@@ -170,7 +220,6 @@ public class Text_Text extends Fragment {
 
                     String OutPutText =  view.translateHandler(InputText);
                     Output_text.setText(OutPutText);
-
                 }
             });
 
