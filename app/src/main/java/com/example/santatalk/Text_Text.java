@@ -66,8 +66,8 @@ public class Text_Text extends Fragment {
         Category_spinner.setAdapter(Category_adapter);
 
         // OnItemSelectListenerを作成
-        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main,tmpView,"Category");
-        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main,tmpView,"Detail");
+        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main,tmpView,view,"Category");
+        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main,tmpView,view,"Detail");
 
         Category_spinner.setOnItemSelectedListener(CategoryListener);
 
@@ -100,7 +100,7 @@ public class Text_Text extends Fragment {
 
 
     // Spinnerで選択された要素に応じてボタンを生成するメソッド
-    public static void generateButton(Context context,View view,LinearLayout buttonContainer, String selectedOption){
+    public static void generateButton(Context context, View tmpView, com.example.santatalk.View view, LinearLayout buttonContainer, String selectedOption){
         // 既存のボタンがあれば削除
         buttonContainer.removeAllViews();
 
@@ -163,9 +163,14 @@ public class Text_Text extends Fragment {
                     Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
 
 
-                    TextView Input_text = view.findViewById(R.id.Input_text);
+                    TextView Input_text = tmpView.findViewById(R.id.Input_text);
+                    TextView Output_text = tmpView.findViewById(R.id.OutPut_text);
 
                     Input_text.setText(InputText);
+
+                    String OutPutText =  view.translateHandler(InputText);
+                    Output_text.setText(OutPutText);
+
                 }
             });
 

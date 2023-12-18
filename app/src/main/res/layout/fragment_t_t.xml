@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="INPUT TEXT"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.47000003" />
 
     <Button
         android:id="@+id/Change_Lang_button"
@@ -51,7 +51,8 @@
         app:layout_constraintBottom_toTopOf="@+id/OutPut_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Input_text" />
+        app:layout_constraintTop_toBottomOf="@+id/Input_text"
+        app:layout_constraintVertical_bias="0.51" />
 
     <Spinner
         android:id="@+id/Category_spinner"

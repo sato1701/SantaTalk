@@ -17,12 +17,14 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
 
     public static Context conText_main;
     public static View tmpView;
+    public static com.example.santatalk.View _view;
     public String Identifier;
 
-    OnItemSelectListener(Context ct,View view, String Spinner) {
+    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner) {
         setConText(ct);
         Identifier = Spinner;
         this.tmpView = view;
+        this._view = _view;
     }
 
 
@@ -49,7 +51,7 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
             updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedCategory);
         }
         else if(Identifier == "Detail"){
-            generateButton(conText_main,tmpView, Text_Text.buttonContainer, selectedDetail);
+            generateButton(conText_main,tmpView,_view, Text_Text.buttonContainer, selectedDetail);
         }
 
 
