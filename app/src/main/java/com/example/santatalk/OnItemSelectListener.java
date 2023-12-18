@@ -16,11 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 public class OnItemSelectListener extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static Context conText_main;
+    public static View tmpView;
     public String Identifier;
 
-    OnItemSelectListener(Context ct, String Spinner) {
+    OnItemSelectListener(Context ct,View view, String Spinner) {
         setConText(ct);
         Identifier = Spinner;
+        this.tmpView = view;
     }
 
 
@@ -47,7 +49,7 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
             updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedCategory);
         }
         else if(Identifier == "Detail"){
-            generateButton(conText_main, Text_Text.buttonContainer, selectedDetail);
+            generateButton(conText_main,tmpView, Text_Text.buttonContainer, selectedDetail);
         }
 
 

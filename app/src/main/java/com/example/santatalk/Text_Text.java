@@ -37,7 +37,8 @@ public class Text_Text extends Fragment {
 
     // buttonのコンテナ
     public static LinearLayout buttonContainer;
-    public Button[] Words_button;
+
+    public static String InputText = "";
 
     Text_Text(com.example.santatalk.View view){
         this.view = view;
@@ -65,8 +66,8 @@ public class Text_Text extends Fragment {
         Category_spinner.setAdapter(Category_adapter);
 
         // OnItemSelectListenerを作成
-        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main,"Category");
-        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main,"Detail");
+        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main,tmpView,"Category");
+        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main,tmpView,"Detail");
 
         Category_spinner.setOnItemSelectedListener(CategoryListener);
 
@@ -94,50 +95,18 @@ public class Text_Text extends Fragment {
         Select_Word_scroll = tmpView.findViewById(R.id.Select_Word_scroll);
         buttonContainer = Select_Word_scroll.findViewById(R.id.buttonContainer);
 
-
-
-
-
         return tmpView;
     }
 
-    String JapanWordNoun[] = {  };
-    String JapanWordIntVerb[] = {  };
-    String JapanWordTranVerb[] = {  };
-    String JapanWordAdjective[] = {  };
-    String JapanWordNumeral[] = {  };
-    String JapanWordInterjection[] = {  };
-    String JapanWordAuxVerb[] = {  };
-
-    String JapanWordIntVerbFuture[] = { "降るだろう(したい)", "あるだろう(したい)", "寝るだろう(したい)", "笑うだろう(したい)", "喜ぶだろう(したい)" };
-    String JapanWordTranVerbFuture[] = { "行くだろう(したい)", "見るだろう(したい)", "食べるだろう(したい)", "与えるだろう(したい)", "だろう", "するだろう(したい)",
-            "置くだろう(したい)", "作るだろう(したい)", "かくだろう(したい)", "話すだろう(したい)", "感謝するだろう(したい)" };
-    String JapanWordIntVerbPast[] = { "降った", "あった", "寝た", "笑った", "喜んだ" };
-    String JapanWordTranVerbPast[] = { "行った", "見た", "食べた", "与えた", "だった", "した", "置いた", "作った", "かいた", "話した", "感謝した" };
-    String SantaWordNoun[] = { "aaa", "aab", "aac", "aad", "aba", "abb", "abc", "abd", "acb", "acc", "acd", "adb",
-            "adc", "baa", "bab", "bac", "bad", "bba", "bbb", "bcd", "bdc", "caa", "cab", "cac", "cad", "cba",
-            "cbb", "cbc", "cbd", "cca", "ccb", "ccd", "cdb", "cdc", "daa", "dab" };
-    String SantaWordIntVerb[] = { "dac", "dad", "dba", "dbb", "dbc" };
-    String SantaWordTranVerb[] = { "dbd", "dca", "dcc", "dcd", "ddb", "ddc", "aa", "ab", "ac", "ad", "ba" };
-    String SantaWordAdjective[] = { "bb", "bc", "bd", "ca", "cb" };
-    String SantaWordNumeral[] = { "cc", "cd" };
-    String SantaWordInterjection[] = { "bcc", "db", "dc", "bca" };
-    String SantaWordAuxVerb[] = { "bbc", "bbd" };
-
-
-
 
     // Spinnerで選択された要素に応じてボタンを生成するメソッド
-    public static void generateButton(Context context,LinearLayout buttonContainer, String selectedOption){
+    public static void generateButton(Context context,View view,LinearLayout buttonContainer, String selectedOption){
         // 既存のボタンがあれば削除
         buttonContainer.removeAllViews();
 
         Resources resources = context.getResources();
         String[] buttonTexts = new String[0];
 
-        int Words;
-        int amount = 0;
-//        String[] Words;
         Log.d("Text_Text", "selectedOption" + selectedOption);
 
         if(selectedOption.equals("代名詞")){
@@ -183,10 +152,22 @@ public class Text_Text extends Fragment {
             dynamicButton.setText(buttonText);
 
             // ボタンがクリックされたときの処理
-//            dynamicButton.setOnClickListener(v -> {
-//                Toast.makeText(context, "Dynamic Button Clicked for " + selectedOption, Toast.LENGTH_SHORT).show();
-//                // ここにボタンがクリックされたときの追加の処理を記述
-//            });
+            dynamicButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // ボタンの文字列をInputText変数に格納
+                    Button clickedButton = (Button) v;
+                    InputText += " " + clickedButton.getText().toString();
+
+                    // 格納された文字列を表示
+                    Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
+
+
+                    TextView Input_text = view.findViewById(R.id.Input_text);
+
+                    Input_text.setText(InputText);
+                }
+            });
 
             // ボタンをレイアウトに追加
             buttonContainer.addView(dynamicButton);
