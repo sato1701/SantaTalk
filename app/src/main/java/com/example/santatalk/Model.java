@@ -20,9 +20,16 @@ public class Model {
         //TODO
     }
 
-    void translate( ){
+    String translate(String InputText){
         this.dispatchToWords();
         //TODO
+        String OutPutText = "";
+
+        OutPutText += InputText + "translate";
+        // ここに翻訳処理記述お願いします。
+        // 返り値はStringでおねがいします。
+
+        return OutPutText;
     }
 
     void dispatchToWords() {

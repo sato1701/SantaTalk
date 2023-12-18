@@ -3,6 +3,7 @@ package com.example.santatalk;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.icu.util.Output;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -44,12 +45,16 @@ public class Controller extends AppCompatActivity {
         view.init(conText_main);
     }
 
-    void translate( ){
-        model.translate();
-        view.translateResult();
+    String translate(String InputText){
+        String OutPutText = "";
+        OutPutText = model.translate(InputText);
+//        view.translateResult(OutPutText);
+        return OutPutText;
     }
 
     void record(){
+        String OutputText = "";
+
         // if (isRecording){
             model.requestPermissions();
             model.recordStart();
@@ -57,7 +62,7 @@ public class Controller extends AppCompatActivity {
         // }else{
             model.recordStop();
             view.record();
-            view.translateResult();
+            view.translateResult(OutputText);
         // }
     }
 
