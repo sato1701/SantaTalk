@@ -1,3 +1,82 @@
 <resources>
     <string name="app_name">SantaTalk</string>
+
+    <string-array name="category_array">
+        <item>動詞</item>
+        <item>名詞</item>
+        <item>形容詞</item>
+        <item>感動詞</item>
+        <item>助動詞</item>
+    </string-array>
+
+    <string-array name="detail_noun_array">
+        <item>代名詞</item>
+        <item>固有名詞</item>
+        <item>一般名詞</item>
+        <item>数詞</item>
+    </string-array>
+
+    <string-array name="noun_people_array">
+        <item>私</item>
+        <item>あなた</item>
+        <item>彼(彼ら)</item>
+        <item>これ(あれ)</item>
+    </string-array>
+
+    <string-array name="noun_unique_array">
+        <item>\0</item>
+    </string-array>
+
+    <string-array name="noun_general_array">
+        <item>\0</item>
+    </string-array>
+
+    <string-array name="noun_numeral_array">
+        <item>\0</item>
+    </string-array>
+
+    <string-array name="detail_verb_array">
+        <item>自動詞</item>
+        <item>他動詞</item>
+    </string-array>
+
+    <string-array name="verb_intransitive_array">
+        <item>\0</item>
+    </string-array>
+
+    <string-array name="verb_transitive_array">
+        <item>\0</item>
+    </string-array>
+
+    <string-array name="detail_adjective_array">
+        <item>感情</item>
+        <item>表現</item>
+    </string-array>
+
+
+    <string-array name="adjective_emotion_array">
+        <item>\0</item>
+    </string-array>
+
+    <string-array name="adjective_expression_array">
+        <item>\0</item>
+    </string-array>
+
+
+    <string-array name="detail_interjection_array">
+        <item>\0</item>
+    </string-array>
+
+    <string-array name="interjection_array">
+        <item>\0</item>
+    </string-array>
+
+
+    <string-array name="detail_auxiliaryVerb_array">
+        <item>\0</item>
+    </string-array>
+
+    <string-array name="auxiliaryVerb_array">
+        <item>\0</item>
+    </string-array>
 </resources>
