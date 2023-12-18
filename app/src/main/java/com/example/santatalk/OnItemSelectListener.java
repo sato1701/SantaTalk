@@ -16,17 +16,15 @@ import androidx.appcompat.app.AppCompatActivity;
 public class OnItemSelectListener extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static Context conText_main;
-    public static Spinner Category_spinner;
-    public static Spinner Detail_spinner;
+    public static View tmpView;
+    public static com.example.santatalk.View _view;
+    public String Identifier;
 
-    public static LinearLayout buttonContainer;
-
-    OnItemSelectListener(Context ct, LinearLayout buttonContainer, Spinner Category, Spinner Detail) {
+    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner) {
         setConText(ct);
-        conText_main = ct;
-        this.buttonContainer = buttonContainer;
-        this.Category_spinner = Category;
-        this.Detail_spinner = Detail;
+        Identifier = Spinner;
+        this.tmpView = view;
+        this._view = _view;
     }
 
 
@@ -39,11 +37,25 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         //Spinnerで選択された要素に応じてボタンを再生成
-        String selectedOption = parent.getItemAtPosition(position).toString();
-        updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedOption);
+        String selectedCategory = Text_Text.Category_spinner.getItemAtPosition(position).toString();
+        int pos = Text_Text.Detail_spinner.getCount() - 1;
+        Log.d("OnItemSelectListener", "Count " + pos);
+        if(pos < position){
+            position = pos;
+        }
+
+        String selectedDetail = Text_Text.Detail_spinner.getItemAtPosition(position).toString();
 
 
-        generateButton(conText_main, Text_Text.buttonContainer, selectedOption);
+        if(Identifier == "Category"){
+            updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedCategory);
+        }
+        else if(Identifier == "Detail"){
+            generateButton(conText_main,tmpView,_view, Text_Text.buttonContainer, selectedDetail);
+        }
+
+
+
     }
 
     @Override

@@ -2,11 +2,12 @@
     <string name="app_name">SantaTalk</string>
 
     <string-array name="category_array">
-        <item>動詞</item>
         <item>名詞</item>
+        <item>動詞</item>
         <item>形容詞</item>
-        <item>感動詞</item>
         <item>助動詞</item>
+        <item>感動詞</item>
+
     </string-array>
 
     <string-array name="detail_noun_array">
@@ -22,17 +23,45 @@
         <item>彼(彼ら)</item>
         <item>これ(あれ)</item>
     </string-array>
-
     <string-array name="noun_unique_array">
-        <item>\0</item>
+        <item>"サンタ"</item>
     </string-array>
 
     <string-array name="noun_general_array">
-        <item>\0</item>
+        <item>"クリスマス"</item>
+        <item>"プレゼント"</item>
+        <item>"煙突"</item>
+        <item>"家"</item>
+        <item>"チキン"</item>
+        <item>"ケーキ"</item>
+        <item>"ツリー"</item>
+        <item>"こども"</item>
+        <item>"爆発"</item>
+        <item>"ソリ"</item>
+        <item>"ミルク"</item>
+        <item>"クッキー"</item>
+        <item>"食べ物"</item>
+        <item>"動物"</item>
+        <item>"雪"</item>
+        <item>"幸せ(夢, 希望)"</item>
+        <item>"もの(こと)"</item>
+        <item>"恋人"</item>
+        <item>"サーフィン"</item>
+        <item>"人"</item>
+        <item>"飲み物"</item>
+        <item>"気持ち"</item>
+        <item>"お菓子"</item>
+        <item>"鼻"</item>
+        <item>"クリスマスカード"</item>
+        <item>"絵"</item>
+        <item>"手紙"</item>
+        <item>"おもちゃ"</item>
     </string-array>
 
     <string-array name="noun_numeral_array">
-        <item>\0</item>
+        <item>少し</item>
+        <item>たくさん</item>
+
     </string-array>
 
     <string-array name="detail_verb_array">
@@ -41,11 +70,24 @@
     </string-array>
 
     <string-array name="verb_intransitive_array">
-        <item>\0</item>
+        <item>降る</item>
+        <item>ある</item>
+        <item>寝る</item>
+        <item>笑う</item>
+        <item>喜ぶ</item>
     </string-array>
 
     <string-array name="verb_transitive_array">
-        <item>\0</item>
+        <item>行く</item>
+        <item>見る</item>
+        <item>食べる</item>
+        <item>与える</item>
+        <item>だ</item>
+        <item>置く</item>
+        <item>作る</item>
+        <item>かく</item>
+        <item>話す</item>
+        <item>感謝する</item>
     </string-array>
 
     <string-array name="detail_adjective_array">
@@ -55,28 +97,36 @@
 
 
     <string-array name="adjective_emotion_array">
-        <item>\0</item>
+        <item>いい(好き)</item>
+        <item>よくない(好きではない)</item>
+        <item>あたたかい</item>
+        <item>つめたい</item>
     </string-array>
 
     <string-array name="adjective_expression_array">
-        <item>\0</item>
+        <item>赤い</item>
     </string-array>
 
 
     <string-array name="detail_interjection_array">
-        <item>\0</item>
+        <item>挨拶</item>
     </string-array>
-
     <string-array name="interjection_array">
-        <item>\0</item>
+        <item>メリークリスマス</item>
+        <item>ありがとう</item>
+        <item>どういたしまして</item>
+        <item>さようなら</item>
     </string-array>
 
 
     <string-array name="detail_auxiliaryVerb_array">
-        <item>\0</item>
+        <item>助動詞</item>
     </string-array>
 
     <string-array name="auxiliaryVerb_array">
-        <item>\0</item>
+        <item>だろう(したい)</item>
+        <item>だった</item>
     </string-array>
+
+
 </resources>

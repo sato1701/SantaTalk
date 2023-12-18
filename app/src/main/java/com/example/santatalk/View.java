@@ -76,8 +76,11 @@ public class View extends AppCompatActivity {
         //TODO
     }
 
-    void translateHandler() {
+    String translateHandler(String InputText) {
         //TODO
+        String OutPutText = "";
+        OutPutText = controller.translate(InputText);
+        return OutPutText;
     }
 
     void changeMode() {
@@ -92,7 +95,8 @@ public class View extends AppCompatActivity {
         //TODO
     }
 
-    void translateResult() {
+    String translateResult(String OutPutText) {
         //TODO
+        return OutPutText;
     }
 }
