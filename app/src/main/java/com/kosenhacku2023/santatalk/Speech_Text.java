@@ -1,4 +1,4 @@
-package com.example.santatalk;
+package com.kosenhacku2023.santatalk;
 
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 public class Speech_Text extends Fragment {
 
-    public com.example.santatalk.View view;
-    Speech_Text(com.example.santatalk.View view){
+    public com.kosenhacku2023.santatalk.View view;
+    Speech_Text(com.kosenhacku2023.santatalk.View view){
         this.view = view;
 
     }

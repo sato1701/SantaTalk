@@ -1,7 +1,6 @@
-package com.example.santatalk;
+package com.kosenhacku2023.santatalk;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,20 +10,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-
-import java.lang.reflect.Array;
 
 public class Text_Text extends Fragment {
 
     public Controller controller;   //Controller
     public Mode mode;
-    public com.example.santatalk.View view;
+    public com.kosenhacku2023.santatalk.View view;
     public TextView Input_text;
     public TextView Output_text;
 
@@ -43,7 +38,7 @@ public class Text_Text extends Fragment {
 
     public static String InputText = "Japanese";
 
-    Text_Text(com.example.santatalk.View view){
+    Text_Text(com.kosenhacku2023.santatalk.View view){
         this.view = view;
 //        this.mode = mode;
     }
