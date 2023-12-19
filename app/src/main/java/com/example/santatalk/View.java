@@ -20,7 +20,7 @@ public class View extends AppCompatActivity {
 //    public View onView;
     public Controller controller;   //Controller
     public Mode mode;
-    public View thisView;
+    public View view;
     public TextView Mode_Name;      //Mode_Nameを格納するTextView
     public Button Change_Mode_button;      //モード変更を行うボタン(Debug?)
 
@@ -44,12 +44,12 @@ public class View extends AppCompatActivity {
     public View(Controller controller,Mode mode) {
         //TODO
         this.controller = controller;
-        thisView = this;
+        this.view = this;
         this.mode = mode;
     }
 
-    Text_Text text_text = new Text_Text(this,mode);
-    Speech_Text speech_text = new Speech_Text(this);
+//    Text_Text text_text = new Text_Text(this,mode);
+//    Speech_Text speech_text = new Speech_Text(this);
 
     //アプリ起動時の初期化関数 Text to Textのレイアウトを表示する
     void init(Context conText_main) {
@@ -58,24 +58,51 @@ public class View extends AppCompatActivity {
         //MainActivityのContextを取得
         this.conText_main = conText_main;
 
-        controller.replaceFragment(new Text_Text(thisView,mode));
+        controller.replaceFragment(new Text_Text(view));
 
+        // ChangeMode
         // ボタンがクリックされた時の処理
         Change_Mode_button = ((com.example.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentOne);
-        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Text_Text(thisView,mode)));
+        Change_Mode_button.setOnClickListener(v -> changeModeHandler(0));
         Change_Mode_button = ((com.example.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentTwo);
-        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Speech_Text(thisView)));
+        Change_Mode_button.setOnClickListener(v -> changeModeHandler(1));
 
     }
 
+    void call_Text_Text(){
+        controller.replaceFragment(new Text_Text(view));
+    }
+    void call_Speech_Text(){
+        controller.replaceFragment(new Speech_Text(view));
+    }
 
-    void changeModeHandler() {
+
+    void changeModeHandler(int flag) {
         //TODO
+        controller.changeMode(flag);
+
     }
 
-    void changeLanguageHandler() {
+    void changeLanguageHandler(android.view.View view) {
         //TODO
+        controller.changeLanguage(view);
     }
+
+    void setLangSS(android.view.View view){
+        TextView Input_text = view.findViewById(R.id.Input_text);
+        TextView Output_text = view.findViewById(R.id.OutPut_text);
+
+        Input_text.setText("santanish");
+    }
+
+    void setLangSJ(android.view.View view){
+        TextView Input_text = view.findViewById(R.id.Input_text);
+        TextView Output_text = view.findViewById(R.id.OutPut_text);
+
+        Input_text.setText("japanese");
+
+    }
+
 
     void recordHandler() {
         //TODO
@@ -90,6 +117,8 @@ public class View extends AppCompatActivity {
 
     void changeMode() {
         //TODO
+//        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Text_Text(thisView)));
+//        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Speech_Text(thisView)));
     }
 
     void changeLanguage() {

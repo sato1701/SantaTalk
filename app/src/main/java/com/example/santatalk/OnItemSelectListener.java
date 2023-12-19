@@ -19,15 +19,15 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
     public static View tmpView;
     public static com.example.santatalk.View _view;
 
-    public static Mode mode;
+//    public static Mode mode;
     public String Identifier;
 
-    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner,Mode mode) {
+    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner) {
         setConText(ct);
         Identifier = Spinner;
         this.tmpView = view;
         this._view = _view;
-        this.mode = mode;
+//        this.mode = mode;
     }
 
 
@@ -39,7 +39,7 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS) {
+//        if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS) {
             //Spinnerで選択された要素に応じてボタンを再生成
             String selectedCategory = Text_Text.Category_spinner.getItemAtPosition(position).toString();
             int pos = Text_Text.Detail_spinner.getCount() - 1;
@@ -59,7 +59,7 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
 
         }
 
-    }
+//    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
