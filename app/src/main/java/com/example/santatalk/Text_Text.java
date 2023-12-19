@@ -23,7 +23,7 @@ import java.lang.reflect.Array;
 public class Text_Text extends Fragment {
 
     public Controller controller;   //Controller
-    public static Mode mode;
+    public Mode mode;
     public com.example.santatalk.View view;
     public TextView Input_text;
     public TextView Output_text;
@@ -43,9 +43,9 @@ public class Text_Text extends Fragment {
 
     public static String InputText = "";
 
-    Text_Text(com.example.santatalk.View view,Mode mode){
+    Text_Text(com.example.santatalk.View view){
         this.view = view;
-        this.mode = mode;
+//        this.mode = mode;
     }
 
 
@@ -71,8 +71,8 @@ public class Text_Text extends Fragment {
         Category_spinner.setAdapter(Category_adapter);
 
         // OnItemSelectListenerを作成
-        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main, tmpView, view, "Category",mode);
-        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main, tmpView, view, "Detail",mode);
+        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main, tmpView, view, "Category");
+        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main, tmpView, view, "Detail");
 
         Category_spinner.setOnItemSelectedListener(CategoryListener);
 
@@ -105,29 +105,33 @@ public class Text_Text extends Fragment {
         Change_Lang_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // changeLanguage
+                view.changeLanguageHandler(tmpView);
+
+
                 // ボタンの文字列をInputText変数に格納
                 Button clickedButton = (Button) v;
-                TextView Input_text = tmpView.findViewById(R.id.Input_text);
-                TextView Output_text = tmpView.findViewById(R.id.OutPut_text);
-                InputText = "";
-                Input_text.setText("INPUT TEXT");
-                Output_text.setText("OUTPUT TEXT");
 
-                if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS){
-                    flagInputLang = 1;
-                    mode.setTranslateMode(Mode.TRANSLATE_MODE.SStoNJ);
-                    generateButton(view.conText_main,tmpView,view,buttonContainer,"Santanish");
-                }
-                else if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SStoNJ){
-                    mode.setTranslateMode(Mode.TRANSLATE_MODE.SJtoSS);
-                    flagInputLang = 0;
-                    Category_spinner.getItemAtPosition(0);
-                    Detail_spinner.getItemAtPosition(0);
-                    generateButton(view.conText_main,tmpView,view,buttonContainer,Detail_spinner.getItemAtPosition(0).toString());
-                }
-                else{
-                    flagInputLang = 0;
-                }
+                InputText = "";
+//                Input_text.setText("INPUT TEXT");
+//                Output_text.setText("OUTPUT TEXT");
+
+//                if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS){
+//                    flagInputLang = 1;
+//                    mode.setTranslateMode(Mode.TRANSLATE_MODE.SStoNJ);
+//                    generateButton(view.conText_main,tmpView,view,buttonContainer,"Santanish");
+//                }
+//                else if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SStoNJ){
+//                    mode.setTranslateMode(Mode.TRANSLATE_MODE.SJtoSS);
+//                    flagInputLang = 0;
+//                    Category_spinner.getItemAtPosition(0);
+//                    Detail_spinner.getItemAtPosition(0);
+//                    generateButton(view.conText_main,tmpView,view,buttonContainer,Detail_spinner.getItemAtPosition(0).toString());
+//                }
+//                else{
+//                    flagInputLang = 0;
+//                }
 
                 Change_Lang_button.setText("Input Language is : " + InputLang[flagInputLang]);
 
