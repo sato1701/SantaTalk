@@ -79,13 +79,13 @@ public class Controller extends AppCompatActivity {
 //        view.changeMode();
     }
 
-    void changeLanguage(android.view.View view){
+    void changeLanguage(android.view.View view,View _view){
         if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SStoNJ){
             mode.setTranslateMode(Mode.TRANSLATE_MODE.SJtoSS);
-            this.view.setLangSJ(view);
+            this.view.setLangSJ(view,_view);
         } else if (mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS) {
             mode.setTranslateMode(Mode.TRANSLATE_MODE.SStoNJ);
-            this.view.setLangSS(view);
+            this.view.setLangSS(view,_view);
         }
         else{
             //error;

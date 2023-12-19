@@ -38,10 +38,10 @@ public class Text_Text extends Fragment {
 
     // buttonのコンテナ
     public static LinearLayout buttonContainer;
-    public static String[] InputLang = {"Japanese","Santanish"};
-    public static int flagInputLang = 0;
+    public String InputLang = "";
+    public  int flagInputLang = 0;
 
-    public static String InputText = "";
+    public static String InputText = "Japanese";
 
     Text_Text(com.example.santatalk.View view){
         this.view = view;
@@ -101,43 +101,19 @@ public class Text_Text extends Fragment {
         buttonContainer = Select_Word_scroll.findViewById(R.id.buttonContainer);
 
         Change_Lang_button = tmpView.findViewById(R.id.Change_Lang_button);
-        Change_Lang_button.setText("Input Language is : " + InputLang[flagInputLang]);
+        Change_Lang_button.setText("Input Language is : " + InputText);
         Change_Lang_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // changeLanguage
-                view.changeLanguageHandler(tmpView);
-
+                view.changeLanguageHandler(tmpView,view);
 
                 // ボタンの文字列をInputText変数に格納
-                Button clickedButton = (Button) v;
-
-                InputText = "";
-//                Input_text.setText("INPUT TEXT");
-//                Output_text.setText("OUTPUT TEXT");
-
-//                if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS){
-//                    flagInputLang = 1;
-//                    mode.setTranslateMode(Mode.TRANSLATE_MODE.SStoNJ);
-//                    generateButton(view.conText_main,tmpView,view,buttonContainer,"Santanish");
-//                }
-//                else if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SStoNJ){
-//                    mode.setTranslateMode(Mode.TRANSLATE_MODE.SJtoSS);
-//                    flagInputLang = 0;
-//                    Category_spinner.getItemAtPosition(0);
-//                    Detail_spinner.getItemAtPosition(0);
-//                    generateButton(view.conText_main,tmpView,view,buttonContainer,Detail_spinner.getItemAtPosition(0).toString());
-//                }
-//                else{
-//                    flagInputLang = 0;
-//                }
-
-                Change_Lang_button.setText("Input Language is : " + InputLang[flagInputLang]);
-
+//                Button clickedButton = (Button) v;
 
                 // 格納された文字列を表示
-                Toast.makeText(view.conText_main, "Input Language is : " + InputLang[flagInputLang], Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.conText_main, "Input Language is : " + InputText, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -146,91 +122,7 @@ public class Text_Text extends Fragment {
     }
 
 
-    // Spinnerで選択された要素に応じてボタンを生成するメソッド
-    public static void generateButton(Context context, View tmpView, com.example.santatalk.View view, LinearLayout buttonContainer, String selectedOption){
-        // 既存のボタンがあれば削除
-        buttonContainer.removeAllViews();
 
-        Resources resources = context.getResources();
-        String[] buttonTexts = new String[0];
-
-        Log.d("Text_Text", "selectedOption" + selectedOption);
-
-        if(selectedOption.equals("代名詞")){
-            buttonTexts = resources.getStringArray(R.array.noun_people_array);
-        } else if (selectedOption.equals("固有名詞")) {
-            buttonTexts = resources.getStringArray(R.array.noun_unique_array);
-
-        } else if (selectedOption.equals("一般名詞")) {
-            buttonTexts = resources.getStringArray(R.array.noun_general_array);
-
-        } else if (selectedOption.equals("数詞")) {
-            buttonTexts = resources.getStringArray(R.array.noun_numeral_array);
-
-        } else if (selectedOption.equals("自動詞")) {
-            buttonTexts = resources.getStringArray(R.array.verb_intransitive_array);
-
-        } else if (selectedOption.equals("他動詞")) {
-            buttonTexts = resources.getStringArray(R.array.verb_transitive_array);
-
-        } else if (selectedOption.equals("感情")) {
-            buttonTexts = resources.getStringArray(R.array.adjective_emotion_array);
-
-        } else if (selectedOption.equals("表現")) {
-            buttonTexts = resources.getStringArray(R.array.adjective_expression_array);
-
-        } else if (selectedOption.equals("挨拶")) {
-            buttonTexts = resources.getStringArray(R.array.interjection_array);
-
-        } else if (selectedOption.equals("助動詞")) {
-            buttonTexts = resources.getStringArray(R.array.auxiliaryVerb_array);
-
-        } else if (selectedOption.equals("Santanish")) {
-            buttonTexts = resources.getStringArray(R.array.Santanish_array);
-
-        }
-        else{
-            buttonTexts = resources.getStringArray(R.array.noun_people_array);
-        }
-
-        for(String buttonText : buttonTexts) {
-            // ボタンを生成
-            Button dynamicButton = new Button(context);
-            dynamicButton.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            dynamicButton.setText(buttonText);
-
-            // ボタンがクリックされたときの処理
-            dynamicButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // ボタンの文字列をInputText変数に格納
-                    Button clickedButton = (Button) v;
-                    if(clickedButton.getText().toString().equals("init")){
-                        InputText = "";
-                    } else if (clickedButton.getText().toString().equals("Space")) {
-                        InputText += " | ";
-                    } else {
-                        InputText += " " + clickedButton.getText().toString();
-                        // 格納された文字列を表示
-                        Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
-
-                    }
-                    TextView Input_text = tmpView.findViewById(R.id.Input_text);
-                    TextView Output_text = tmpView.findViewById(R.id.OutPut_text);
-
-                    Input_text.setText(InputText);
-
-                    String OutPutText =  view.translateHandler(InputText);
-                    Output_text.setText(OutPutText);
-                }
-            });
-
-            // ボタンをレイアウトに追加
-            buttonContainer.addView(dynamicButton);
-        }
-    }
 
     //TODO
     // making

@@ -1,6 +1,6 @@
 package com.example.santatalk;
 
-import static com.example.santatalk.Text_Text.generateButton;
+//import static com.example.santatalk.Text_Text.generateButton;
 import static com.example.santatalk.Text_Text.updateSecondSpinner;
 
 import android.content.Context;
@@ -50,11 +50,10 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
 
             String selectedDetail = Text_Text.Detail_spinner.getItemAtPosition(position).toString();
 
-
             if (Identifier == "Category") {
                 updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedCategory);
             } else if (Identifier == "Detail") {
-                generateButton(conText_main, tmpView, _view, Text_Text.buttonContainer, selectedDetail);
+                _view.generateButton(conText_main, tmpView, _view, Text_Text.buttonContainer, selectedDetail);
             }
 
         }
