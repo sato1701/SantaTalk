@@ -1,6 +1,6 @@
 package com.example.santatalk;
 
-import static com.example.santatalk.Text_Text.generateButton;
+//import static com.example.santatalk.Text_Text.generateButton;
 import static com.example.santatalk.Text_Text.updateSecondSpinner;
 
 import android.content.Context;
@@ -19,15 +19,15 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
     public static View tmpView;
     public static com.example.santatalk.View _view;
 
-    public static Mode mode;
+//    public static Mode mode;
     public String Identifier;
 
-    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner,Mode mode) {
+    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner) {
         setConText(ct);
         Identifier = Spinner;
         this.tmpView = view;
         this._view = _view;
-        this.mode = mode;
+//        this.mode = mode;
     }
 
 
@@ -39,7 +39,7 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS) {
+//        if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS) {
             //Spinnerで選択された要素に応じてボタンを再生成
             String selectedCategory = Text_Text.Category_spinner.getItemAtPosition(position).toString();
             int pos = Text_Text.Detail_spinner.getCount() - 1;
@@ -50,16 +50,15 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
 
             String selectedDetail = Text_Text.Detail_spinner.getItemAtPosition(position).toString();
 
-
             if (Identifier == "Category") {
                 updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedCategory);
             } else if (Identifier == "Detail") {
-                generateButton(conText_main, tmpView, _view, Text_Text.buttonContainer, selectedDetail);
+                _view.generateButton(conText_main, tmpView, _view, Text_Text.buttonContainer, selectedDetail);
             }
 
         }
 
-    }
+//    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

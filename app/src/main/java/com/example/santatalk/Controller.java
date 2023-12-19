@@ -30,7 +30,6 @@ public class Controller extends AppCompatActivity {
         init();
     }
 
-
     //Fragmentの置き換えを行う
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -66,11 +65,31 @@ public class Controller extends AppCompatActivity {
         // }
     }
 
-    void changeMode(){
-        view.changeMode();
+    void changeMode(int flag){
+        if(flag == 0){
+            // Fragment1をcall]
+            view.call_Text_Text();;
+        }else if(flag == 1){
+            // Fragment2をcall
+            view.call_Speech_Text();
+        }
+        else{
+            //error
+        }
+//        view.changeMode();
     }
 
-    void changeLanguage(){
-        view.changeLanguage();
+    void changeLanguage(android.view.View view,View _view){
+        if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SStoNJ){
+            mode.setTranslateMode(Mode.TRANSLATE_MODE.SJtoSS);
+            this.view.setLangSJ(view,_view);
+        } else if (mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS) {
+            mode.setTranslateMode(Mode.TRANSLATE_MODE.SStoNJ);
+            this.view.setLangSS(view,_view);
+        }
+        else{
+            //error;
+        }
+//        view.changeLanguage();
     }
 }
