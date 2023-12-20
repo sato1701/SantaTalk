@@ -45,11 +45,25 @@ public class Controller extends AppCompatActivity {
         myView.init(conText_main);
     }
 
-    String translate(String InputText, android.view.View view){
+    void translate(String InputText, android.view.View view){
+        int spaceCounter = 0;
         String OutputText; //return
-        String[] DispatchedText = Model.dispatchToWords(InputText);
+        String[] DispatchedText;
         List<String> OutputList = new ArrayList<>();
 
+        System.out.println(InputText);
+        if(InputText.equals("")) {
+            myView.translateResult("", view);
+            return;
+        }
+        for(int i = 0; i < InputText.length(); i++) {
+            if(InputText.charAt(i) == ' ') spaceCounter++;
+            if(spaceCounter >= 5){
+                myView.translateResult("Too long input text", view);
+                return;
+            }
+        }
+        DispatchedText = Model.dispatchToWords(InputText);
         switch(mode.getTranslateMode()){
             case NJtoSJ:
                 OutputList = model.translateNJtoSJ(DispatchedText);
@@ -63,7 +77,6 @@ public class Controller extends AppCompatActivity {
         }
         OutputText = Model.connectToSentence(OutputList);
         myView.translateResult(OutputText, view);
-        return OutputText;
     }
 
     void record(android.view.View view){

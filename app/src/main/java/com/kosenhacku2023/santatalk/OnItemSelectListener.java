@@ -10,20 +10,22 @@ import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Objects;
+
 public class OnItemSelectListener extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static Context conText_main;
-    public static View tmpView;
-    public static com.kosenhacku2023.santatalk.View _view;
+    public static View view;
+    public static com.kosenhacku2023.santatalk.View myView;
 
 //    public static Mode mode;
     public String Identifier;
 
-    OnItemSelectListener(Context ct, View view, com.kosenhacku2023.santatalk.View _view, String Spinner) {
+    OnItemSelectListener(Context ct, View view, com.kosenhacku2023.santatalk.View myView, String Spinner) {
         setConText(ct);
         Identifier = Spinner;
-        this.tmpView = view;
-        this._view = _view;
+        this.view = view;
+        this.myView = myView;
 //        this.mode = mode;
     }
 
@@ -47,12 +49,11 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
 
             String selectedDetail = Text_Text.Detail_spinner.getItemAtPosition(position).toString();
 
-            if (Identifier == "Category") {
+            if (Objects.equals(Identifier, "Category")) {
                 updateSecondSpinner(conText_main, Text_Text.Detail_spinner, selectedCategory);
-            } else if (Identifier == "Detail") {
-                _view.generateButton(conText_main, tmpView, _view, Text_Text.buttonContainer, selectedDetail);
+            } else if (Objects.equals(Identifier, "Detail")) {
+                myView.generateButton(conText_main, OnItemSelectListener.view, myView, Text_Text.buttonContainer, selectedDetail);
             }
-
         }
 
 //    }

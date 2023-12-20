@@ -25,17 +25,6 @@ public class Model {
         //TODO
     }
 
-//    String translate(String InputText){
-//        //TODO
-//        String OutPutText = "";
-//
-//        OutPutText += InputText + "translate";
-//        // ここに翻訳処理記述お願いします。
-//        // 返り値はStringでおねがいします。
-//
-//        return OutPutText;
-//    }
-
     static String[] dispatchToWords(String str) {
         int wordIndex = 0;
         int pointer = 0;
@@ -52,6 +41,7 @@ public class Model {
         text[wordIndex] = str.substring(pointer);
         return text;
     }
+
     static String connectToSentence(List<String> textList) {
         StringBuilder sentence = new StringBuilder();
         for(int i = 0; i < textList.size()-1; i++) {
@@ -61,96 +51,136 @@ public class Model {
         return sentence.toString();
     }
 
-    List<String> translateSJtoSS(String[] str) { //Santa(Japan) to Santa(Santa)
-        int index = 0;
+    List<String> translateSJtoSS(String[] str){
         List<String> returnString = new ArrayList<>();
-        String buffer;
-        int flagFuture = 0, flagPast = 0, flagGrammar = 0;
-        String Numeral;
+        for(String word : str){
+            if(word == null) break;
+            returnString.add(dic.JapanToSanta.get(word));
+        }
 
-        if (index >= str.length) {
-            return returnString;
-        }
-        if ((buffer = dic.NounJapanToSanta.get(str[index])) != null) {
-            returnString.add(buffer);
+        //Grammar check
+        int index = 0;
+        boolean isBadGrammar = false;
+
+        if(dic.NounJapanToSanta.get(str[index]) != null){
             index++;
-        } else if ((buffer = dic.InterjectionJapanToSanta.get(str[index])) != null) {
-            returnString.add(buffer);
-            flagGrammar = 1;
-            if (flagGrammar != 1)
-                returnString.add("(文法エラー)");
-            return returnString;
-        } else {
-            System.out.println("Noun_or_Interjection_error:" + str[index]);
-            if (flagGrammar != 1)
-                returnString.add("(文法エラー)");
-            return returnString;
-        }
-        if (index >= str.length) {
-            if (flagGrammar != 1)
-                returnString.add("(文法エラー)");
-            return returnString;
-        }
-        if ((buffer = dic.AuxVerbJapanToSanta.get(str[index])) != null) {
-            if (str[index].equals("だろう(したい)")) {
-                flagFuture = 1;
-            } else if (str[index].equals("だった")) {
-                flagPast = 1;
-            }
-            returnString.add(buffer);
-            index++;
-        }
-        if (index >= str.length) {
-            if (flagGrammar != 1)
-                returnString.add("(文法エラー)");
-            return returnString;
-        }
-        if ((buffer = dic.IntVerbJapanToSanta.get(str[index])) != null) {
-            returnString.add(buffer);
-            index++;
-            flagGrammar = 1;
-        } else if ((buffer = dic.TranVerbJapanToSanta.get(str[index])) != null) {
-            returnString.add(buffer);
-            index++;
-            if (index >= str.length) {
-                if (flagGrammar != 1)
-                    returnString.add("(文法エラー)");
-                return returnString;
-            }
-            if ((buffer = dic.NounJapanToSanta.get(str[index])) != null) {
-                returnString.add(buffer);
+            if(dic.AuxVerbJapanToSanta.get(str[index])!= null) {
                 index++;
-                flagGrammar = 1;
-            } else {
-                System.out.println("Tran_Noun_error:" + str[index]);
-                if (flagGrammar != 1)
-                    returnString.add("(文法エラー)");
-                return returnString;
             }
-        } else if ((buffer = dic.AdjectiveJapanToSanta.get(str[index])) != null) {
-            returnString.add(buffer);
+
+            if(dic.IntVerbJapanToSanta.get(str[index])!= null) {
+                index++;
+            }else if(dic.TranVerbSantaToJapan.get(str[index])!= null) {
+                index++;
+            }else if(dic.AdjectiveJapanToSanta.get(str[index])!= null) {
+                index++;
+            }else{
+                isBadGrammar = true;
+            }
+            if(dic.NumeralJapanToSanta.get(str[index])!= null) {
+                index++;
+            }
+        }else if(dic.InterjectionJapanToSanta.get(str[index])!= null){
             index++;
-            flagGrammar = 1;
-        } else {
-            System.out.println("IntVerb_or_tranVerb_or_Adjective_error:" + str[index]);
-            if (flagGrammar != 1)
-                returnString.add("(文法エラー)");
-            return returnString;
+        }else{
+            isBadGrammar = true;
         }
-        if (index >= str.length) {
-            if (flagGrammar != 1)
-                returnString.add("(文法エラー)");
-            return returnString;
-        }
-        if ((buffer = dic.NumeralJapanToSanta.get(str[index])) != null) {
-            returnString.add(buffer);
-            index++;
-            flagGrammar = 1;
-        }
-        if (flagGrammar != 1)
-            returnString.add("(文法エラー)");
+
+        if(index != returnString.size()) isBadGrammar = true;
+        if(isBadGrammar) returnString.add("(文法エラー)");
+
         return returnString;
     }
+//    List<String> translateSJtoSS(String[] str) { //Santa(Japan) to Santa(Santa)
+//        int index = 0;
+//        List<String> returnString = new ArrayList<>();
+//        String buffer;
+//        int flagFuture = 0, flagPast = 0, flagGrammar = 0;
+//        String Numeral;
+//
+//        if (index >= str.length) {
+//            return returnString;
+//        }
+//        if ((buffer = dic.NounJapanToSanta.get(str[index])) != null) {
+//            returnString.add(buffer);
+//            index++;
+//        } else if ((buffer = dic.InterjectionJapanToSanta.get(str[index])) != null) {
+//            returnString.add(buffer);
+//            flagGrammar = 1;
+//            if (flagGrammar != 1)
+//                returnString.add("(文法エラー)");
+//            return returnString;
+//        } else {
+//            System.out.println("Noun_or_Interjection_error:" + str[index]);
+//            if (flagGrammar != 1)
+//                returnString.add("(文法エラー)");
+//            return returnString;
+//        }
+//        if (index >= str.length) {
+//            if (flagGrammar != 1)
+//                returnString.add("(文法エラー)");
+//            return returnString;
+//        }
+//        if ((buffer = dic.AuxVerbJapanToSanta.get(str[index])) != null) {
+//            if (str[index].equals("だろう(したい)")) {
+//                flagFuture = 1;
+//            } else if (str[index].equals("だった")) {
+//                flagPast = 1;
+//            }
+//            returnString.add(buffer);
+//            index++;
+//        }
+//        if (index >= str.length) {
+//            if (flagGrammar != 1)
+//                returnString.add("(文法エラー)");
+//            return returnString;
+//        }
+//        if ((buffer = dic.IntVerbJapanToSanta.get(str[index])) != null) {
+//            returnString.add(buffer);
+//            index++;
+//            flagGrammar = 1;
+//        } else if ((buffer = dic.TranVerbJapanToSanta.get(str[index])) != null) {
+//            returnString.add(buffer);
+//            index++;
+//            if (index >= str.length) {
+//                if (flagGrammar != 1)
+//                    returnString.add("(文法エラー)");
+//                return returnString;
+//            }
+//            if ((buffer = dic.NounJapanToSanta.get(str[index])) != null) {
+//                returnString.add(buffer);
+//                index++;
+//                flagGrammar = 1;
+//            } else {
+//                System.out.println("Tran_Noun_error:" + str[index]);
+//                if (flagGrammar != 1)
+//                    returnString.add("(文法エラー)");
+//                return returnString;
+//            }
+//        } else if ((buffer = dic.AdjectiveJapanToSanta.get(str[index])) != null) {
+//            returnString.add(buffer);
+//            index++;
+//            flagGrammar = 1;
+//        } else {
+//            System.out.println("IntVerb_or_tranVerb_or_Adjective_error:" + str[index]);
+//            if (flagGrammar != 1)
+//                returnString.add("(文法エラー)");
+//            return returnString;
+//        }
+//        if (index >= str.length) {
+//            if (flagGrammar != 1)
+//                returnString.add("(文法エラー)");
+//            return returnString;
+//        }
+//        if ((buffer = dic.NumeralJapanToSanta.get(str[index])) != null) {
+//            returnString.add(buffer);
+//            index++;
+//            flagGrammar = 1;
+//        }
+//        if (flagGrammar != 1)
+//            returnString.add("(文法エラー)");
+//        return returnString;
+//    }
     List<String> translateSStoNJ(String[] str){ // Santa(Santa) to Natural(Japan)
         int index = 0;
         List<String> returnString = new ArrayList<>();
@@ -294,7 +324,7 @@ public class Model {
             index++;
             flagGrammar = 1;
             if (flagGrammar != 1)
-
+                returnString.add("(文法エラー)");
             return returnString;
         } else {
             System.out.println("Noun_or_Interjection_error:" + str[index]);
@@ -312,7 +342,6 @@ public class Model {
                     returnString.set(returnString.indexOf("AuxVerb"), "");
                 }
             } else {
-
                 return null;
             }
             return returnString;

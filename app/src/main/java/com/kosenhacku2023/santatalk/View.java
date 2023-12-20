@@ -159,40 +159,43 @@ public class View extends AppCompatActivity {
 
         Log.d("Text_Text", "selectedOption" + selectedOption);
 
-        if(selectedOption.equals("代名詞")){
-            buttonTexts = resources.getStringArray(R.array.noun_people_array);
-        } else if (selectedOption.equals("固有名詞")) {
-            buttonTexts = resources.getStringArray(R.array.noun_unique_array);
-
-        } else if (selectedOption.equals("一般名詞")) {
-            buttonTexts = resources.getStringArray(R.array.noun_general_array);
-
-        } else if (selectedOption.equals("数詞")) {
-            buttonTexts = resources.getStringArray(R.array.noun_numeral_array);
-
-        } else if (selectedOption.equals("自動詞")) {
-            buttonTexts = resources.getStringArray(R.array.verb_intransitive_array);
-
-        } else if (selectedOption.equals("他動詞")) {
-            buttonTexts = resources.getStringArray(R.array.verb_transitive_array);
-
-        } else if (selectedOption.equals("感情")) {
-            buttonTexts = resources.getStringArray(R.array.adjective_emotion_array);
-
-        } else if (selectedOption.equals("表現")) {
-            buttonTexts = resources.getStringArray(R.array.adjective_expression_array);
-
-        } else if (selectedOption.equals("挨拶")) {
-            buttonTexts = resources.getStringArray(R.array.interjection_array);
-
-        } else if (selectedOption.equals("助動詞")) {
-            buttonTexts = resources.getStringArray(R.array.auxiliaryVerb_array);
-
-        } else if (selectedOption.equals("Santanish")) {
-            buttonTexts = resources.getStringArray(R.array.Santanish_array);
-        }
-        else{
-            buttonTexts = resources.getStringArray(R.array.noun_people_array);
+        switch (selectedOption) {
+            case "代名詞":
+                buttonTexts = resources.getStringArray(R.array.noun_people_array);
+                break;
+            case "固有名詞":
+                buttonTexts = resources.getStringArray(R.array.noun_unique_array);
+                break;
+            case "一般名詞":
+                buttonTexts = resources.getStringArray(R.array.noun_general_array);
+                break;
+            case "数詞":
+                buttonTexts = resources.getStringArray(R.array.noun_numeral_array);
+                break;
+            case "自動詞":
+                buttonTexts = resources.getStringArray(R.array.verb_intransitive_array);
+                break;
+            case "他動詞":
+                buttonTexts = resources.getStringArray(R.array.verb_transitive_array);
+                break;
+            case "感情":
+                buttonTexts = resources.getStringArray(R.array.adjective_emotion_array);
+                break;
+            case "表現":
+                buttonTexts = resources.getStringArray(R.array.adjective_expression_array);
+                break;
+            case "挨拶":
+                buttonTexts = resources.getStringArray(R.array.interjection_array);
+                break;
+            case "助動詞":
+                buttonTexts = resources.getStringArray(R.array.auxiliaryVerb_array);
+                break;
+            case "Santanish":
+                buttonTexts = resources.getStringArray(R.array.Santanish_array);
+                break;
+            default:
+                buttonTexts = resources.getStringArray(R.array.noun_people_array);
+                break;
         }
 
         for(String buttonText : buttonTexts) {
@@ -229,11 +232,8 @@ public class View extends AppCompatActivity {
                             InputText += " " + clickedButton.getText().toString();
                         // 格納された文字列を表示
                         Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
-
                     }
-
                     Input_text.setText(InputText);
-
                     myView.translateHandler(InputText, view);
                 }
             });
