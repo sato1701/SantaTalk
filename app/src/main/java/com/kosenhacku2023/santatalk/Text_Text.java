@@ -18,8 +18,7 @@ import androidx.fragment.app.Fragment;
 public class Text_Text extends Fragment {
 
     public Controller controller;   //Controller
-    public Mode mode;
-    public com.kosenhacku2023.santatalk.View view;
+    public com.kosenhacku2023.santatalk.View myView;
     public TextView Input_text;
     public TextView Output_text;
 
@@ -39,19 +38,18 @@ public class Text_Text extends Fragment {
     public static String InputText = "Japanese";
 
     Text_Text(com.kosenhacku2023.santatalk.View view){
-        this.view = view;
-//        this.mode = mode;
+        this.myView = view;
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Fragmentのレイアウトをインフレート
-        View tmpView = inflater.inflate(R.layout.fragment_t_t, container, false);
+        View view = inflater.inflate(R.layout.fragment_t_t, container, false);
         Log.d("onCreateView","flagInputLang : "+flagInputLang);
 
         //Spinnerの取得
-        Category_spinner = tmpView.findViewById(R.id.Category_spinner);
+        Category_spinner = view.findViewById(R.id.Category_spinner);
 
         // ArrayAdapterを作成し、Spinnerに設定
         ArrayAdapter<CharSequence> Category_adapter = ArrayAdapter.createFromResource(
@@ -66,14 +64,14 @@ public class Text_Text extends Fragment {
         Category_spinner.setAdapter(Category_adapter);
 
         // OnItemSelectListenerを作成
-        OnItemSelectListener CategoryListener = new OnItemSelectListener(view.conText_main, tmpView, view, "Category");
-        OnItemSelectListener DetailListener = new OnItemSelectListener(view.conText_main, tmpView, view, "Detail");
+        OnItemSelectListener CategoryListener = new OnItemSelectListener(myView.conText_main, view, myView, "Category");
+        OnItemSelectListener DetailListener = new OnItemSelectListener(myView.conText_main, view, myView, "Detail");
 
         Category_spinner.setOnItemSelectedListener(CategoryListener);
 
 
         // Spinnerの取得
-        Detail_spinner = tmpView.findViewById(R.id.Detail_spinner);
+        Detail_spinner = view.findViewById(R.id.Detail_spinner);
 
         // ArrayAdapterを作成し、Spinnerに設定
         ArrayAdapter<CharSequence> Detail_adapter = ArrayAdapter.createFromResource(
@@ -89,20 +87,20 @@ public class Text_Text extends Fragment {
         Detail_spinner.setOnItemSelectedListener(DetailListener);
 
 
-        updateSecondSpinner(view.conText_main, Detail_spinner, Category_spinner.getSelectedItem().toString());
+        updateSecondSpinner(myView.conText_main, Detail_spinner, Category_spinner.getSelectedItem().toString());
 
         //buttonの処理
-        Select_Word_scroll = tmpView.findViewById(R.id.Select_Word_scroll);
+        Select_Word_scroll = view.findViewById(R.id.Select_Word_scroll);
         buttonContainer = Select_Word_scroll.findViewById(R.id.buttonContainer);
 
-        Change_Lang_button = tmpView.findViewById(R.id.Change_Lang_button);
+        Change_Lang_button = view.findViewById(R.id.Change_Lang_button);
         Change_Lang_button.setText("Input Language is : " + InputText);
         Change_Lang_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // changeLanguage
-                view.changeLanguageHandler(tmpView,view);
+                myView.changeLanguageHandler(view,myView);
 
                 // ボタンの文字列をInputText変数に格納
 //                Button clickedButton = (Button) v;
@@ -113,7 +111,7 @@ public class Text_Text extends Fragment {
         });
 
 
-        return tmpView;
+        return view;
     }
 
 

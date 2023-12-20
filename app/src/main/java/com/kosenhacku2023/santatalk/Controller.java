@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class Controller extends AppCompatActivity {
     public Mode mode = new Mode(this);
     Model model = new Model(this, mode);
-    View view = new View(this,mode);
+    View myView = new View(this);
 
     //MainActivityのContextをView.javaに渡してView内でUIの変更を行えるようにする
     public Context conText_main;
@@ -40,55 +40,56 @@ public class Controller extends AppCompatActivity {
 
     void init() {
         model.init();
-        view.init(conText_main);
+        myView.init(conText_main);
     }
 
-    String translate(String InputText){
+    String translate(String InputText, android.view.View view){
         String OutPutText = "";
         OutPutText = model.translate(InputText);
-//        view.translateResult(OutPutText);
+        myView.translateResult(OutPutText,view);
         return OutPutText;
     }
 
-    void record(){
+    void record(android.view.View view){
         String OutputText = "";
 
         // if (isRecording){
             model.requestPermissions();
             model.recordStart();
-            view.record();
+            myView.record();
         // }else{
             model.recordStop();
-            view.record();
-            view.translateResult(OutputText);
+            myView.record();
+            myView.translateResult(OutputText,view);
         // }
     }
 
     void changeMode(int flag){
         if(flag == 0){
-            // Fragment1をcall]
-            view.call_Text_Text();;
+            // Fragment1をcall
+            myView.call_Text_Text();;
         }else if(flag == 1){
             // Fragment2をcall
-            view.call_Speech_Text();
+            myView.call_Speech_Text();
         }
         else{
             //error
+            System.out.println("RunTimeException");
         }
 //        view.changeMode();
     }
 
-    void changeLanguage(android.view.View view,View _view){
+    void changeLanguage(android.view.View view,View myView){
         if(mode.getTranslateMode() == Mode.TRANSLATE_MODE.SStoNJ){
             mode.setTranslateMode(Mode.TRANSLATE_MODE.SJtoSS);
-            this.view.setLangSJ(view,_view);
+            myView.setLangSJ(view,myView);
         } else if (mode.getTranslateMode() == Mode.TRANSLATE_MODE.SJtoSS) {
             mode.setTranslateMode(Mode.TRANSLATE_MODE.SStoNJ);
-            this.view.setLangSS(view,_view);
+            myView.setLangSS(view,myView);
         }
         else{
             //error;
+            System.out.println("RunTimeException");
         }
-//        view.changeLanguage();
     }
 }
