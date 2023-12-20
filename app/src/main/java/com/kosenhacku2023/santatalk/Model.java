@@ -1,4 +1,4 @@
-package com.example.santatalk;
+package com.kosenhacku2023.santatalk;
 
 import java.util.ArrayList;
 import java.util.List;

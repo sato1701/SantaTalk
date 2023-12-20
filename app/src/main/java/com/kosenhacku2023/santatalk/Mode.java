@@ -1,4 +1,4 @@
-package com.example.santatalk;
+package com.kosenhacku2023.santatalk;
 
 public class Mode {
     private boolean isSpeechMode = false;

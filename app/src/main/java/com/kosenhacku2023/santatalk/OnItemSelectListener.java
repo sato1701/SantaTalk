@@ -1,15 +1,12 @@
-package com.example.santatalk;
+package com.kosenhacku2023.santatalk;
 
 //import static com.example.santatalk.Text_Text.generateButton;
-import static com.example.santatalk.Text_Text.updateSecondSpinner;
+import static com.kosenhacku2023.santatalk.Text_Text.updateSecondSpinner;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,12 +14,12 @@ public class OnItemSelectListener extends AppCompatActivity implements AdapterVi
 
     public static Context conText_main;
     public static View tmpView;
-    public static com.example.santatalk.View _view;
+    public static com.kosenhacku2023.santatalk.View _view;
 
 //    public static Mode mode;
     public String Identifier;
 
-    OnItemSelectListener(Context ct, View view, com.example.santatalk.View _view, String Spinner) {
+    OnItemSelectListener(Context ct, View view, com.kosenhacku2023.santatalk.View _view, String Spinner) {
         setConText(ct);
         Identifier = Spinner;
         this.tmpView = view;

@@ -1,21 +1,16 @@
-package com.example.santatalk;
+package com.kosenhacku2023.santatalk;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 public class View extends AppCompatActivity {
     public Context conText_main;    //MainActivityのContext
@@ -67,9 +62,9 @@ public class View extends AppCompatActivity {
 
         // ChangeMode
         // ボタンがクリックされた時の処理
-        Change_Mode_button = ((com.example.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentOne);
+        Change_Mode_button = ((com.kosenhacku2023.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentOne);
         Change_Mode_button.setOnClickListener(v -> changeModeHandler(0));
-        Change_Mode_button = ((com.example.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentTwo);
+        Change_Mode_button = ((com.kosenhacku2023.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentTwo);
         Change_Mode_button.setOnClickListener(v -> changeModeHandler(1));
 
     }
@@ -159,7 +154,7 @@ public class View extends AppCompatActivity {
         return OutPutText;
     }
     // Spinnerで選択された要素に応じてボタンを生成するメソッド
-    public static void generateButton(Context context, android.view.View tmpView, com.example.santatalk.View view, LinearLayout buttonContainer, String selectedOption){
+    public static void generateButton(Context context, android.view.View tmpView, com.kosenhacku2023.santatalk.View view, LinearLayout buttonContainer, String selectedOption){
         // 既存のボタンがあれば削除
         buttonContainer.removeAllViews();
 

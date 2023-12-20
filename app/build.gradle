@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.santatalk'
+    namespace 'com.kosenhacku2023.santatalk'
     compileSdkVersion 34
 
     defaultConfig {
-        applicationId "com.example.santatalk"
+        applicationId 'com.kosenhacku2023.santatalk'
         minSdk 27
         targetSdk 33
         versionCode 1

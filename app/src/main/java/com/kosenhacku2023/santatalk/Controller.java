@@ -1,9 +1,8 @@
-package com.example.santatalk;
+package com.kosenhacku2023.santatalk;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.icu.util.Output;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
