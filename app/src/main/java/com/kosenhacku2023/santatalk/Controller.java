@@ -45,7 +45,7 @@ public class Controller extends AppCompatActivity {
         myView.init(conText_main);
     }
 
-    String translate(String InputText){
+    String translate(String InputText, android.view.View view){
         String OutputText; //return
         String[] DispatchedText = Model.dispatchToWords(InputText);
         List<String> OutputList = new ArrayList<>();
@@ -62,7 +62,7 @@ public class Controller extends AppCompatActivity {
                 break;
         }
         OutputText = Model.connectToSentence(OutputList);
-//        view.translateResult(OutputText);
+        myView.translateResult(OutputText, view);
         return OutputText;
     }
 

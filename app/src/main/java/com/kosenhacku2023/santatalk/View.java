@@ -125,9 +125,9 @@ public class View extends AppCompatActivity {
         //TODO
     }
 
-    void translateHandler(String InputText) {
+    void translateHandler(String InputText,android.view.View view) {
         //TODO
-        controller.translate(InputText);
+        controller.translate(InputText,view);
     }
 
     void changeMode() {
@@ -223,7 +223,10 @@ public class View extends AppCompatActivity {
                     } else if (clickedButton.getText().toString().equals("Space")) {
                         InputText += " ";
                     } else {
-                        InputText += " " + clickedButton.getText().toString();
+                        if(InputText.equals(""))
+                            InputText = clickedButton.getText().toString();
+                        else
+                            InputText += " " + clickedButton.getText().toString();
                         // 格納された文字列を表示
                         Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
 
@@ -231,7 +234,7 @@ public class View extends AppCompatActivity {
 
                     Input_text.setText(InputText);
 
-                    myView.translateHandler(InputText);
+                    myView.translateHandler(InputText, view);
                 }
             });
 
