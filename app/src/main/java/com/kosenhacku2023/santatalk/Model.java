@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    Mode mode;
     Dictionary dic;
-    public Model(Controller controller, Mode mode) {
-
+    public Model(Controller controller) {
+        dic = new Dictionary();
     }
 
     void init() {
@@ -26,20 +25,45 @@ public class Model {
         //TODO
     }
 
-    String translate(String InputText){
-        //TODO
-        String OutPutText = "";
+//    String translate(String InputText){
+//        //TODO
+//        String OutPutText = "";
+//
+//        OutPutText += InputText + "translate";
+//        // ここに翻訳処理記述お願いします。
+//        // 返り値はStringでおねがいします。
+//
+//        return OutPutText;
+//    }
 
-        OutPutText += InputText + "translate";
-        // ここに翻訳処理記述お願いします。
-        // 返り値はStringでおねがいします。
-
-        return OutPutText;
+    static String[] dispatchToWords(String str) {
+        int wordIndex = 0;
+        int pointer = 0;
+        String[] text = new String[5];
+        for(int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == ' ') {
+                if(wordIndex == 5) {
+                    throw new RuntimeException("Too many words in the sentence.");
+                }
+                text[wordIndex++] = str.substring(pointer, i);
+                pointer = i+1;
+            }
+        }
+        text[wordIndex] = str.substring(pointer);
+        return text;
+    }
+    static String connectToSentence(List<String> textList) {
+        StringBuilder sentence = new StringBuilder();
+        for(int i = 0; i < textList.size()-1; i++) {
+            sentence.append(textList.get(i)).append(' ');
+        }
+        sentence.append(textList.get(textList.size()-1));
+        return sentence.toString();
     }
 
-    List<String> TranslateSJtoSS(String[] str) { //Santa(Japan) to Santa(Santa)
+    List<String> translateSJtoSS(String[] str) { //Santa(Japan) to Santa(Santa)
         int index = 0;
-        List<String> returnString = new ArrayList<String>();
+        List<String> returnString = new ArrayList<>();
         String buffer;
         int flagFuture = 0, flagPast = 0, flagGrammar = 0;
         String Numeral;
@@ -145,9 +169,9 @@ public class Model {
             return null;
         }
     }
-    List<String> TranslateSStoNJ(String[] str){ // Santa(Santa) to Natural(Japan)
+    List<String> translateSStoNJ(String[] str){ // Santa(Santa) to Natural(Japan)
         int index = 0;
-        List<String> returnString = new ArrayList<String>();
+        List<String> returnString = new ArrayList<>();
         String buffer;
         int flagFuture = 0, flagPast = 0, flagGrammar = 0;
         String Numeral;
@@ -185,9 +209,9 @@ public class Model {
         returnString.add("Numeral"); // 数詞の場所を確保
 
         if ((buffer = dic.AuxVerbSantaToJapan.get(str[index])) != null) {
-            if (buffer == "だろう(したい)") {
+            if (buffer.equals("だろう(したい)")) {
                 flagFuture = 1;
-            } else if (buffer == "だった") {
+            } else if (buffer.equals("だった")) {
                 flagPast = 1;
             }
             index++;
@@ -285,7 +309,7 @@ public class Model {
             return null;
         }
     }
-    List<String> TranslateNJtoSJ(String[] str) { // Natural(Japan) to Santa(Japan)
+    List<String> translateNJtoSJ(String[] str) { // Natural(Japan) to Santa(Japan)
         int index = 0;
         List<String> returnString = new ArrayList<String>();
         String buffer;

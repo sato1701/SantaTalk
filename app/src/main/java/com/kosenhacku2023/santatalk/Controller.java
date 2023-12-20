@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class Controller extends AppCompatActivity {
     public Mode mode = new Mode(this);
-    Model model = new Model(this, mode);
+    Model model = new Model(this);
     View myView = new View(this);
 
     //MainActivityのContextをView.javaに渡してView内でUIの変更を行えるようにする
@@ -43,38 +45,52 @@ public class Controller extends AppCompatActivity {
         myView.init(conText_main);
     }
 
-    String translate(String InputText, android.view.View view){
-        String OutPutText = "";
-        OutPutText = model.translate(InputText);
-        myView.translateResult(OutPutText,view);
-        return OutPutText;
+    String translate(String InputText){
+        String OutputText; //return
+        String[] DispatchedText = Model.dispatchToWords(InputText);
+        List<String> OutputList = new ArrayList<>();
+
+        switch(mode.getTranslateMode()){
+            case NJtoSJ:
+                OutputList = model.translateNJtoSJ(DispatchedText);
+                break;
+            case SStoNJ:
+                OutputList = model.translateSStoNJ(DispatchedText);
+                break;
+            case SJtoSS:
+                OutputList = model.translateSJtoSS(DispatchedText);
+                break;
+        }
+        OutputText = Model.connectToSentence(OutputList);
+//        view.translateResult(OutputText);
+        return OutputText;
     }
 
     void record(android.view.View view){
         String OutputText = "";
 
         // if (isRecording){
-            model.requestPermissions();
-            model.recordStart();
-            myView.record();
+        model.requestPermissions();
+        model.recordStart();
+        myView.record();
         // }else{
-            model.recordStop();
-            myView.record();
-            myView.translateResult(OutputText,view);
+        model.recordStop();
+        myView.record();
+        myView.translateResult(OutputText,view);
         // }
     }
 
     void changeMode(int flag){
         if(flag == 0){
             // Fragment1をcall
-            myView.call_Text_Text();;
+            myView.call_Text_Text();
         }else if(flag == 1){
             // Fragment2をcall
             myView.call_Speech_Text();
         }
         else{
             //error
-            System.out.println("RunTimeException");
+            throw new RuntimeException("Unknown flag number:" + flag);
         }
 //        view.changeMode();
     }
@@ -89,7 +105,7 @@ public class Controller extends AppCompatActivity {
         }
         else{
             //error;
-            System.out.println("RunTimeException");
+            throw new RuntimeException("Unknown translate_mode number");
         }
     }
 }

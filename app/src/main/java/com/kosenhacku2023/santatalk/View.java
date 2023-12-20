@@ -125,9 +125,9 @@ public class View extends AppCompatActivity {
         //TODO
     }
 
-    void translateHandler(String InputText,android.view.View view) {
+    void translateHandler(String InputText) {
         //TODO
-        controller.translate(InputText,view);
+        controller.translate(InputText);
     }
 
     void changeMode() {
@@ -190,7 +190,6 @@ public class View extends AppCompatActivity {
 
         } else if (selectedOption.equals("Santanish")) {
             buttonTexts = resources.getStringArray(R.array.Santanish_array);
-
         }
         else{
             buttonTexts = resources.getStringArray(R.array.noun_people_array);
@@ -232,7 +231,7 @@ public class View extends AppCompatActivity {
 
                     Input_text.setText(InputText);
 
-                    myView.translateHandler(InputText,view);
+                    myView.translateHandler(InputText);
                 }
             });
 
