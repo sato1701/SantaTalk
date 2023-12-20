@@ -19,9 +19,7 @@ public class View extends AppCompatActivity {
 
 //    public View onView;
     public Controller controller;   //Controller
-    public Mode mode;
-    public View view;
-    public TextView Mode_Name;      //Mode_Nameを格納するTextView
+    public View myView;
     public Button Change_Mode_button;      //モード変更を行うボタン(Debug?)
 
 
@@ -41,11 +39,10 @@ public class View extends AppCompatActivity {
 //    public Button[] Words_button;
 
     //コンストラクタ replaceFragmentを使用したいのでcontrollerを取得しておく
-    public View(Controller controller,Mode mode) {
+    public View(Controller controller) {
         //TODO
         this.controller = controller;
-        this.view = this;
-        this.mode = mode;
+        this.myView = this;
     }
 
 //    Text_Text text_text = new Text_Text(this,mode);
@@ -58,7 +55,7 @@ public class View extends AppCompatActivity {
         //MainActivityのContextを取得
         this.conText_main = conText_main;
 
-        controller.replaceFragment(new Text_Text(view));
+        controller.replaceFragment(new Text_Text(myView));
 
         // ChangeMode
         // ボタンがクリックされた時の処理
@@ -70,10 +67,10 @@ public class View extends AppCompatActivity {
     }
 
     void call_Text_Text(){
-        controller.replaceFragment(new Text_Text(view));
+        controller.replaceFragment(new Text_Text(myView));
     }
     void call_Speech_Text(){
-        controller.replaceFragment(new Speech_Text(view));
+        controller.replaceFragment(new Speech_Text(myView));
     }
 
 
@@ -88,7 +85,7 @@ public class View extends AppCompatActivity {
         controller.changeLanguage(view,_view);
     }
 
-    void setLangSS(android.view.View view,View _view){
+    void setLangSS(android.view.View view,View myView){
         TextView Input_text = view.findViewById(R.id.Input_text);
         TextView Output_text = view.findViewById(R.id.OutPut_text);
 
@@ -98,12 +95,12 @@ public class View extends AppCompatActivity {
         Button Change_Lang_button = view.findViewById(R.id.Change_Lang_button);
         Change_Lang_button.setText("Input Language is : Santanish");
 
-        generateButton(conText_main,view,_view,buttonContainer,"Santanish");
+        generateButton(conText_main,view,myView,buttonContainer,"Santanish");
         Input_text.setText("input santanish");
         Output_text.setText("OUTPUT TEXT");
     }
 
-    void setLangSJ(android.view.View view,View _view){
+    void setLangSJ(android.view.View view,View myView){
         TextView Input_text = view.findViewById(R.id.Input_text);
         TextView Output_text = view.findViewById(R.id.OutPut_text);
 
@@ -115,7 +112,7 @@ public class View extends AppCompatActivity {
         Category_spinner.getItemAtPosition(0);
         Detail_spinner.getItemAtPosition(0);
 
-        generateButton(conText_main,view,_view,buttonContainer,Detail_spinner.getItemAtPosition(0).toString());
+        generateButton(conText_main,view,myView,buttonContainer,Detail_spinner.getItemAtPosition(0).toString());
 
         Button Change_Lang_button = view.findViewById(R.id.Change_Lang_button);
         Change_Lang_button.setText("Input Language is : japanese");
@@ -128,11 +125,9 @@ public class View extends AppCompatActivity {
         //TODO
     }
 
-    String translateHandler(String InputText) {
+    void translateHandler(String InputText,android.view.View view) {
         //TODO
-        String OutPutText = "";
-        OutPutText = controller.translate(InputText);
-        return OutPutText;
+        controller.translate(InputText,view);
     }
 
     void changeMode() {
@@ -149,12 +144,13 @@ public class View extends AppCompatActivity {
         //TODO
     }
 
-    String translateResult(String OutPutText) {
+    void translateResult(String OutPutText, android.view.View view) {
         //TODO
-        return OutPutText;
+        TextView Output_text = view.findViewById(R.id.OutPut_text);
+        Output_text.setText(OutPutText);
     }
     // Spinnerで選択された要素に応じてボタンを生成するメソッド
-    public static void generateButton(Context context, android.view.View tmpView, com.kosenhacku2023.santatalk.View view, LinearLayout buttonContainer, String selectedOption){
+    public static void generateButton(Context context, android.view.View view, com.kosenhacku2023.santatalk.View myView, LinearLayout buttonContainer, String selectedOption){
         // 既存のボタンがあれば削除
         buttonContainer.removeAllViews();
 
@@ -214,8 +210,8 @@ public class View extends AppCompatActivity {
                 public void onClick(android.view.View v) {
                     // ボタンの文字列をInputText変数に格納
                     Button clickedButton = (Button) v;
-                    TextView Input_text = tmpView.findViewById(R.id.Input_text);
-                    TextView Output_text = tmpView.findViewById(R.id.OutPut_text);
+                    TextView Input_text = view.findViewById(R.id.Input_text);
+                    TextView Output_text = view.findViewById(R.id.OutPut_text);
                     String InputText = Input_text.getText().toString();
                     if (InputText.equals("input japanese")) {
                         InputText = "";
@@ -236,8 +232,7 @@ public class View extends AppCompatActivity {
 
                     Input_text.setText(InputText);
 
-                    String OutPutText =  view.translateHandler(InputText);
-                    Output_text.setText(OutPutText);
+                    myView.translateHandler(InputText,view);
                 }
             });
 
