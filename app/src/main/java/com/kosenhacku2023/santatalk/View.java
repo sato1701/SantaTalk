@@ -63,6 +63,8 @@ public class View extends AppCompatActivity {
         Change_Mode_button.setOnClickListener(v -> changeModeHandler(0));
         Change_Mode_button = ((com.kosenhacku2023.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentTwo);
         Change_Mode_button.setOnClickListener(v -> changeModeHandler(1));
+        Change_Mode_button = ((com.kosenhacku2023.santatalk.Controller) conText_main).findViewById(R.id.btnFragmentThree);
+        Change_Mode_button.setOnClickListener(v -> changeModeHandler(2));
 
     }
 
@@ -72,6 +74,8 @@ public class View extends AppCompatActivity {
     void call_Speech_Text(){
         controller.replaceFragment(new Speech_Text(myView));
     }
+
+    void call_Help(){controller.replaceFragment(new Help(myView));}
 
 
     void changeModeHandler(int flag) {

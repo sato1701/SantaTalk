@@ -23,16 +23,24 @@
         <Button
             android:id="@+id/btnFragmentOne"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:text="Fragment One"/>
+            android:text="Text\n-> Text"/>
 
         <Button
             android:id="@+id/btnFragmentTwo"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:text="Fragment Two"/>
+            android:text="Speec\n-> Text" />
+
+        <Button
+            android:id="@+id/btnFragmentThree"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:text="Help\n"
+            android:textAlignment="center"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
