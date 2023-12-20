@@ -194,7 +194,6 @@ public class View extends AppCompatActivity {
 
         } else if (selectedOption.equals("Santanish")) {
             buttonTexts = resources.getStringArray(R.array.Santanish_array);
-
         }
         else{
             buttonTexts = resources.getStringArray(R.array.noun_people_array);
@@ -228,7 +227,10 @@ public class View extends AppCompatActivity {
                     } else if (clickedButton.getText().toString().equals("Space")) {
                         InputText += " ";
                     } else {
-                        InputText += " " + clickedButton.getText().toString();
+                        if(InputText.equals(""))
+                            InputText = clickedButton.getText().toString();
+                        else
+                            InputText += " " + clickedButton.getText().toString();
                         // 格納された文字列を表示
                         Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
 
@@ -236,7 +238,7 @@ public class View extends AppCompatActivity {
 
                     Input_text.setText(InputText);
 
-                    myView.translateHandler(InputText,view);
+                    myView.translateHandler(InputText, view);
                 }
             });
 
