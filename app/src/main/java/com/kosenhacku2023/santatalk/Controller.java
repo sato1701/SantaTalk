@@ -71,8 +71,9 @@ public class Controller extends AppCompatActivity {
         }else if(flag == 1){
             // Fragment2をcall
             myView.call_Speech_Text();
-        }
-        else{
+        } else if (flag == 2) {
+            myView.call_Help();
+        } else{
             //error
             System.out.println("RunTimeException");
         }
