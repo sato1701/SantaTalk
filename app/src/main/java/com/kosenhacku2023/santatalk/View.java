@@ -125,9 +125,10 @@ public class View extends AppCompatActivity {
     }
 
 
-    void recordHandler() {
+    void recordHandler(android.view.View view) {
         //TODO
-
+        Log.d("view.recordHandler","Record Pass");
+        record(view);
     }
 
     void translateHandler(String InputText,android.view.View view) {
@@ -145,8 +146,10 @@ public class View extends AppCompatActivity {
         //TODO
     }
 
-    void record() {
+    void record(android.view.View view) {
         //TODO
+        Log.d("view.record","Record Pass");
+        controller.record(view);
     }
 
     void translateResult(String OutPutText, android.view.View view) {
