@@ -1,6 +1,7 @@
 package com.kosenhacku2023.santatalk;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Model {
@@ -23,6 +24,52 @@ public class Model {
 
     void recordStop( ){
         //TODO
+    }
+
+    List<double[]> audioDispatchToPhoneme(double[] rawData){
+        final int windowSize = 1;
+        List<double[]> result = new ArrayList<>();
+        double[] tmp;
+        double power = 0;
+        int index = 0;
+        boolean cutFlag = false;
+
+        for (double rawDatum : rawData) {
+            power += Math.abs(rawDatum);
+        }
+        power /= rawData.length;
+
+        for(int i = 0; i < rawData.length; i+=windowSize) {
+            double localPower = 0;
+            for (int j = 0; j < windowSize; j++) {
+                localPower += Math.abs(rawData[windowSize * i + j]);
+            }
+            if(cutFlag && localPower <= power){
+                tmp = new double[rawData.length];
+                System.arraycopy(rawData, index, tmp, 0, i - index);
+                result.add(tmp);
+                cutFlag = false;
+            }
+            if(!cutFlag && localPower > power){
+                index = i;
+                cutFlag = true;
+            }
+        }
+        return result;
+    }
+
+    public static double[] normalize(int[] speech) {
+        int maxValue = Arrays.stream(speech).max().orElse(Integer.MIN_VALUE);
+        int minValue = Arrays.stream(speech).min().orElse(Integer.MAX_VALUE);
+        int baseValue = Math.max(Math.abs(maxValue), Math.abs(minValue));
+
+        // normalize to -1 ~ 1
+        double[] normalizedArray = new double[speech.length];
+        for (int i = 0; i < speech.length; i++) {
+            double normalizedValue = speech[i] / (double) baseValue;
+            normalizedArray[i] = normalizedValue;
+        }
+        return normalizedArray;
     }
 
     static String[] dispatchToWords(String str) {
