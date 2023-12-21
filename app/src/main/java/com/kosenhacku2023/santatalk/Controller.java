@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class Controller extends AppCompatActivity {
     public Mode mode = new Mode(this);
-    Model model = new Model(this);
+    Model model = new Model();
     View myView = new View(this);
 
     //MainActivityのContextをView.javaに渡してView内でUIの変更を行えるようにする
@@ -67,9 +67,9 @@ public class Controller extends AppCompatActivity {
         }
         DispatchedText = Model.dispatchToWords(InputText);
         switch(mode.getTranslateMode()){
-            case NJtoSJ:
-                OutputList = model.translateNJtoSJ(DispatchedText);
-                break;
+//            case NJtoSJ:
+//                OutputList = model.translateNJtoSJ(DispatchedText);
+//                break;
             case SStoNJ:
                 OutputList = model.translateSStoNJ(DispatchedText);
                 break;
@@ -82,6 +82,7 @@ public class Controller extends AppCompatActivity {
     }
 
     void record(android.view.View view){
+        //TODO
         String OutputText = "";
         Log.d("Controller","Record Pass");
         model.requestPermissions(this,conText_main,view);
