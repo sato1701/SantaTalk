@@ -18,7 +18,7 @@ class Dictionary {
             "ホ⤴ホ―ホ―", "ホ⤴ホ―ホ⤴", "ホ⤴ホ―ホ⤵", "ホ⤴ホ⤴ホ", "ホ⤴ホ⤴ホ―", "ホ⤴ホ⤴ホ⤵", "ホ⤴ホ⤵ホ―", "ホ⤴ホ⤵ホ⤴", "ホ⤵ホホ", "ホ⤴ホ⤵" };
     String[] SantaWordIntVerb = { "ホ⤵ホホ⤴", "ホ⤵ホホ⤵", "ホ⤵ホ―ホ", "ホ⤵ホ―ホ―", "ホホ" };
     String[] SantaWordTranVerb = { "ホ⤵ホ―ホ⤵", "ホ⤵ホ⤴ホ", "ホ⤵ホ⤴ホ⤴", "ホ⤵ホ⤴ホ⤵", "ホ⤵ホ⤵ホ―", "ホ⤵ホ⤵ホ⤴", "ホ⤵ホ―ホ⤴", "ホホ⤵ホ⤴", "ホホ⤵ホ―", "ホホ―ホ", "ホ―ホ" };
-    String[] SantaWordAsjective = { "ホ―ホ―", "ホホ⤵", "ホホ―ホ―", "ホホ―ホ⤴", "ホホホ―" };
+    String[] SantaWordAdjective = { "ホ―ホ―", "ホホ⤵", "ホホ―ホ―", "ホホ―ホ⤴", "ホホホ―" };
     String[] SantaWordNumeral = { "ホホホ", "ホ⤵ホホ―" };
     String[] SantaWordInterjection = { "ホホホ⤵", "ホ⤵ホ-", "ホ⤵ホ⤴", "ホ―ホ⤴ホ" };
     String[] SantaWordAuxVerb = { "ホ―ホ―ホ⤴", "ホ―ホ―ホ⤵" };
