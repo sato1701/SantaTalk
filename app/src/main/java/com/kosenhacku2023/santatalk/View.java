@@ -127,6 +127,7 @@ public class View extends AppCompatActivity {
 
     void recordHandler() {
         //TODO
+
     }
 
     void translateHandler(String InputText,android.view.View view) {
@@ -233,7 +234,11 @@ public class View extends AppCompatActivity {
                         if(InputText.equals(""))
                             InputText = clickedButton.getText().toString();
                         else
-                            InputText += " " + clickedButton.getText().toString();
+                            if(selectedOption.equals("Santanish")) {
+                                InputText += clickedButton.getText().toString();
+                            }else{
+                                InputText += " " + clickedButton.getText().toString();
+                            }
                         // 格納された文字列を表示
                         Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
                     }
