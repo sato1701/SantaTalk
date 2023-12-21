@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class Controller extends AppCompatActivity {
     }
 
     void init() {
-        model.init();
+        model.init(conText_main);
         myView.init(conText_main);
     }
 
@@ -81,17 +83,26 @@ public class Controller extends AppCompatActivity {
 
     void record(android.view.View view){
         String OutputText = "";
+        Log.d("Controller","Record Pass");
+        model.requestPermissions(this,conText_main,view);
+        changeRecord();
 
-        // if (isRecording){
-        model.requestPermissions();
-        model.recordStart();
-        myView.record();
-        // }else{
-        model.recordStop();
-        myView.record();
-        myView.translateResult(OutputText,view);
-        // }
     }
+
+    void changeRecord(){
+
+        if (!(model.isRecording())){
+            Log.d("Controller",""+!(model.isRecording()));
+            model.recordStart();
+//        myView.record(view);
+        }else{
+            model.recordStop();
+//            model.playRecording();
+//        myView.record(view);
+//        myView.translateResult(OutputText,view);
+        }
+    }
+
 
     void changeMode(int flag){
         if(flag == 0){

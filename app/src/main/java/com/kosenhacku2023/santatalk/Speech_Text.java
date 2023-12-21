@@ -1,7 +1,9 @@
 package com.kosenhacku2023.santatalk;
 
+import android.content.Context;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,7 @@ public class Speech_Text extends Fragment {
 
     public com.kosenhacku2023.santatalk.View myView;
     Speech_Text(com.kosenhacku2023.santatalk.View view){
-        myView = view;
+        this.myView = view;
 
     }
 
@@ -27,16 +29,19 @@ public class Speech_Text extends Fragment {
         TextView OutputText = view.findViewById(R.id.s_OutPut_text);
         Button Recording = view.findViewById(R.id.Record_cState_button);
 
+        Recording.setText("Mic");
+        Log.d("Speech_Text","OnCreate Pass");
         Recording.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myView.recordHandler();
+                Log.d("Speech_Text","OnClick Pass");
+                myView.recordHandler(view);
             }
         });
 
 
 
 
-        return inflater.inflate(R.layout.fragment_s_t, container, false);
+        return view;
     }
 }
