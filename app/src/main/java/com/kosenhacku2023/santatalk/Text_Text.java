@@ -113,10 +113,6 @@ public class Text_Text extends Fragment {
 
         return view;
     }
-
-
-
-
     //TODO
     // making
     public static void updateSecondSpinner(Context context, Spinner secondSpinner, String selectedOption){

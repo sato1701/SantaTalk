@@ -99,6 +99,10 @@ public class View extends AppCompatActivity {
         Button Change_Lang_button = view.findViewById(R.id.Change_Lang_button);
         Change_Lang_button.setText("Input Language is : Santanish");
 
+        Spinner Category_spinner = view.findViewById(R.id.Category_spinner);
+        Spinner Detail_spinner = view.findViewById(R.id.Detail_spinner);
+        toggleSpinnerVisibility(Category_spinner, Detail_spinner);
+
         generateButton(conText_main,view,myView,buttonContainer,"Santanish");
         Input_text.setText("input santanish");
         Output_text.setText("OUTPUT TEXT");
@@ -117,6 +121,7 @@ public class View extends AppCompatActivity {
         Detail_spinner.getItemAtPosition(0);
 
         generateButton(conText_main,view,myView,buttonContainer,Detail_spinner.getItemAtPosition(0).toString());
+        toggleSpinnerVisibility(Category_spinner, Detail_spinner);
 
         Button Change_Lang_button = view.findViewById(R.id.Change_Lang_button);
         Change_Lang_button.setText("Input Language is : japanese");
@@ -253,5 +258,17 @@ public class View extends AppCompatActivity {
             // ボタンをレイアウトに追加
             buttonContainer.addView(dynamicButton);
         }
+    }
+
+    public void toggleSpinnerVisibility(Spinner categorySpinner, Spinner detailSpinner) {
+        if (categorySpinner.getVisibility() == android.view.View.VISIBLE)
+            categorySpinner.setVisibility(android.view.View.GONE);
+        else
+            categorySpinner.setVisibility(android.view.View.VISIBLE);
+
+        if (detailSpinner.getVisibility() == android.view.View.VISIBLE)
+            detailSpinner.setVisibility(android.view.View.GONE);
+        else
+            detailSpinner.setVisibility(android.view.View.VISIBLE);
     }
 }
