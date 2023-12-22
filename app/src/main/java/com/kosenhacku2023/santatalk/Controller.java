@@ -105,7 +105,6 @@ public class Controller extends AppCompatActivity {
         }
     }
 
-
     void changeMode(int flag){
         if(flag == 0){
             // Fragment1をcall
