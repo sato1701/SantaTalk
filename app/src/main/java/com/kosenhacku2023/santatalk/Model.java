@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,12 +23,12 @@ public class Model extends AppCompatActivity {
 
     public Controller controller;
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
-    private String[] permissions = {android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private final String[] permissions = {android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private boolean permissionToRecordAccepted = false;
 
 
     private MediaRecorder mediaRecorder;
-    static File outputFile;
+    File outputFile;
 //    static final  String outputFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/speech.wav";
 
     public Context conText_main;
@@ -68,13 +66,14 @@ public class Model extends AppCompatActivity {
         this.outputFile = new File(conText_main.getFilesDir(), "speech.wav");
 
         Button recordButton = view.findViewById(R.id.Record_cState_button);
-        recordButton.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
+        recordButton.setOnClickListener(v -> {
 //                Log.d("Mode","HEYEHYE");
-                controller.changeRecord();
-            }
+            controller.changeRecord();
         });
+    }
+
+    public boolean isPermissionToRecordAccepted() {
+        return permissionToRecordAccepted;
     }
 
     void recordStart(){

@@ -83,11 +83,12 @@ public class Controller extends AppCompatActivity {
 
     void record(android.view.View view){
         //TODO
-        String OutputText = "";
         Log.d("Controller","Record Pass");
         model.requestPermissions(this,conText_main,view);
+        if(!model.isPermissionToRecordAccepted()) {
+            return;
+        }
         changeRecord();
-
     }
 
     void changeRecord(){
