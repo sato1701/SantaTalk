@@ -124,8 +124,8 @@ public class View extends AppCompatActivity {
         toggleSpinnerVisibility(Category_spinner, Detail_spinner);
 
         Button Change_Lang_button = view.findViewById(R.id.Change_Lang_button);
-        Change_Lang_button.setText("Input Language is : japanese");
-        Input_text.setText("input japanese");
+        Change_Lang_button.setText("Input Language is : Japanese");
+        Input_text.setText("input Japanese");
         Output_text.setText("OUTPUT TEXT");
     }
 

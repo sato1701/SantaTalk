@@ -1,144 +1,76 @@
 package com.kosenhacku2023.santatalk;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class Model extends AppCompatActivity {
+public class Model {
     Dictionary dic;
-
-    public Controller controller;
-    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
-    private final String[] permissions = {android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    private boolean permissionToRecordAccepted = false;
-
-
-    private MediaRecorder mediaRecorder;
-    File outputFile;
-//    static final  String outputFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/speech.wav";
-
-    public Context conText_main;
-
-    public Model(Controller controller) {
+    public Model() {
         dic = new Dictionary();
-        this.controller = controller;
     }
 
-    void init(Context conText_main) {
+    void init() {
         //TODO
-        this.conText_main = conText_main;
-    }
-    boolean isRecording(){
-        return mediaRecorder != null;
     }
 
-
-    void requestPermissions(Activity activity, Context context, android.view.View view){
+    void requestPermissions( ){
         //TODO
-        conText_main = context;
-        Log.d("requestPermissions","Pass");
-        // マイクのパーミッションが許可されているか確認
-        if (ContextCompat.checkSelfPermission(conText_main, android.Manifest.permission.RECORD_AUDIO) != android.content.pm.PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(conText_main, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
-        } else {
-            permissionToRecordAccepted = true;
-        }
-
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_RECORD_AUDIO_PERMISSION);
-        }
-
-        this.outputFile = new File(conText_main.getFilesDir(), "speech.wav");
-
-        Button recordButton = view.findViewById(R.id.Record_cState_button);
-        recordButton.setOnClickListener(v -> {
-//                Log.d("Mode","HEYEHYE");
-            controller.changeRecord();
-        });
     }
 
-    public boolean isPermissionToRecordAccepted() {
-        return permissionToRecordAccepted;
-    }
-
-    void recordStart(){
+    void recordStart( ){
         //TODO
-        mediaRecorder = new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+    }
 
-        mediaRecorder.setOutputFile(outputFile);
+    void recordStop( ){
+        //TODO
+    }
 
-        try {
-            mediaRecorder.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(conText_main, "録音の準備中にエラーが発生しました", Toast.LENGTH_SHORT).show();
-            return;
+    List<double[]> audioDispatchToPhoneme(double[] rawData){
+        final int windowSize = 1;
+        List<double[]> result = new ArrayList<>();
+        double[] tmp;
+        double power = 0;
+        int index = 0;
+        boolean cutFlag = false;
+
+        for (double rawDatum : rawData) {
+            power += Math.abs(rawDatum);
         }
+        power /= rawData.length;
 
-        mediaRecorder.start();
-        Toast.makeText(conText_main, "録音開始", Toast.LENGTH_SHORT).show();
-
-    }
-
-    void recordStop(){
-        if (mediaRecorder != null) {
-            mediaRecorder.stop();
-            mediaRecorder.release();
-            mediaRecorder = null;
-            Toast.makeText(conText_main, "録音終了", Toast.LENGTH_SHORT).show();
+        for(int i = 0; i < rawData.length; i+=windowSize) {
+            double localPower = 0;
+            for (int j = 0; j < windowSize; j++) {
+                localPower += Math.abs(rawData[windowSize * i + j]);
+            }
+            if(cutFlag && localPower <= power){
+                tmp = new double[rawData.length];
+                System.arraycopy(rawData, index, tmp, 0, i - index);
+                result.add(tmp);
+                cutFlag = false;
+            }
+            if(!cutFlag && localPower > power){
+                index = i;
+                cutFlag = true;
+            }
         }
+        return result;
     }
-    //DEBUG
-    public void playRecording() {
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(outputFile.getPath());
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+    public static double[] normalize(int[] speech) {
+        int maxValue = Arrays.stream(speech).max().orElse(Integer.MIN_VALUE);
+        int minValue = Arrays.stream(speech).min().orElse(Integer.MAX_VALUE);
+        int baseValue = Math.max(Math.abs(maxValue), Math.abs(minValue));
+
+        // normalize to -1 ~ 1
+        double[] normalizedArray = new double[speech.length];
+        for (int i = 0; i < speech.length; i++) {
+            double normalizedValue = speech[i] / (double) baseValue;
+            normalizedArray[i] = normalizedValue;
         }
+        return normalizedArray;
     }
-
-//    private void deleteRecording() {
-//        File fileToDelete = new File(conText_main.getFilesDir(), "speech.wav");
-//        if (fileToDelete.exists()) {
-//            boolean deleted = fileToDelete.delete();
-//            if (deleted) {
-//                Toast.makeText(conText_main, "録音データを削除しました", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(conText_main, "録音データの削除に失敗しました", Toast.LENGTH_SHORT).show();
-//            }
-//        } else {
-//            Toast.makeText(conText_main, "録音データが見つかりません", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-
-    public File getOutputFile() {
-//        return outputFile;
-        return outputFile;
-    }
-
-
 
     static String[] dispatchToWords(String str) {
         int wordIndex = 0;
@@ -185,7 +117,7 @@ public class Model extends AppCompatActivity {
 
             if(dic.IntVerbJapanToSanta.get(str[index])!= null) {
                 index++;
-            }else if(dic.TranVerbSantaToJapan.get(str[index])!= null) {
+            }else if(dic.TranVerbJapanToSanta.get(str[index])!= null) {
                 index++;
                 if(dic.NounJapanToSanta.get(str[index])!= null)
                     index++;
