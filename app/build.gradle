@@ -22,11 +22,11 @@ android {
         }
 
         python {
-            buildPython "C:/Python311/python.exe"
             pip {
                 /// pipによるライブラリのインストール
                 install "numpy"
                 install "librosa==0.8.1"
+                install "numba==0.58.1"
             }
         }
     }
