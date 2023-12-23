@@ -141,15 +141,15 @@ public class View extends AppCompatActivity {
         controller.translate(InputText,view);
     }
 
-    void changeMode() {
-        //TODO
-//        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Text_Text(thisView)));
-//        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Speech_Text(thisView)));
-    }
+//    void changeMode() {
+//        //TODO
+////        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Text_Text(thisView)));
+////        Change_Mode_button.setOnClickListener(v -> controller.replaceFragment(new Speech_Text(thisView)));
+//    }
 
-    void changeLanguage() {
-        //TODO
-    }
+//    void changeLanguage() {
+//        //TODO
+//    }
 
     void record(android.view.View view) {
         //TODO
@@ -168,7 +168,7 @@ public class View extends AppCompatActivity {
         buttonContainer.removeAllViews();
 
         Resources resources = context.getResources();
-        String[] buttonTexts = new String[0];
+        String[] buttonTexts;
 
         Log.d("Text_Text", "selectedOption" + selectedOption);
 
@@ -220,39 +220,36 @@ public class View extends AppCompatActivity {
             dynamicButton.setText(buttonText);
 
             // ボタンがクリックされたときの処理
-            dynamicButton.setOnClickListener(new android.view.View.OnClickListener() {
-                @Override
-                public void onClick(android.view.View v) {
-                    // ボタンの文字列をInputText変数に格納
-                    Button clickedButton = (Button) v;
-                    TextView Input_text = view.findViewById(R.id.Input_text);
-                    TextView Output_text = view.findViewById(R.id.OutPut_text);
-                    String InputText = Input_text.getText().toString();
-                    if (InputText.equals("input japanese")) {
-                        InputText = "";
-                    }  else if (InputText.equals("input santanish")) {
-                        InputText = "";
-                    }
-
-                    if(clickedButton.getText().toString().equals("init")){
-                        InputText = "";
-                    } else if (clickedButton.getText().toString().equals("Space")) {
-                        InputText += " ";
-                    } else {
-                        if(InputText.equals(""))
-                            InputText = clickedButton.getText().toString();
-                        else
-                            if(selectedOption.equals("Santanish")) {
-                                InputText += clickedButton.getText().toString();
-                            }else{
-                                InputText += " " + clickedButton.getText().toString();
-                            }
-                        // 格納された文字列を表示
-                        Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
-                    }
-                    Input_text.setText(InputText);
-                    myView.translateHandler(InputText, view);
+            dynamicButton.setOnClickListener(v -> {
+                // ボタンの文字列をInputText変数に格納
+                Button clickedButton = (Button) v;
+                TextView Input_text = view.findViewById(R.id.Input_text);
+                TextView Output_text = view.findViewById(R.id.OutPut_text);
+                String InputText = Input_text.getText().toString();
+                if (InputText.equals("input Japanese")) {
+                    InputText = "";
+                }  else if (InputText.equals("input santanish")) {
+                    InputText = "";
                 }
+
+                if(clickedButton.getText().toString().equals("init")){
+                    InputText = "";
+                } else if (clickedButton.getText().toString().equals("Space")) {
+                    InputText += " ";
+                } else {
+                    if(InputText.equals(""))
+                        InputText = clickedButton.getText().toString();
+                    else
+                        if(selectedOption.equals("Santanish")) {
+                            InputText += clickedButton.getText().toString();
+                        }else{
+                            InputText += " " + clickedButton.getText().toString();
+                        }
+                    // 格納された文字列を表示
+//                    Toast.makeText(context, "InputText: " + InputText, Toast.LENGTH_SHORT).show();
+                }
+                Input_text.setText(InputText);
+                myView.translateHandler(InputText, view);
             });
 
             // ボタンをレイアウトに追加
