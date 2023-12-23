@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,9 @@ public class Controller extends AppCompatActivity {
             model.recordStart();
 //        myView.record(view);
         }else{
-            model.recordStop();
+            String out =  model.recordStop();
+            TextView OutPut = myView.findViewById(R.id.s_OutPut_text);
+            OutPut.setText(out);
 //            model.playRecording();
 //        myView.record(view);
 //        myView.translateResult(OutputText,view);

@@ -7,11 +7,17 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.chaquo.python.PyException;
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,13 +105,43 @@ public class Model extends AppCompatActivity {
 
     }
 
-    void recordStop(){
+    String recordStop(){
+        Log.d("Model","Pass1");
+
         if (mediaRecorder != null) {
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;
             Toast.makeText(conText_main, "録音終了", Toast.LENGTH_SHORT).show();
+            Log.d("Model","Pass2");
         }
+
+        if(!Python.isStarted()){
+            Python.start(new AndroidPlatform(conText_main));
+        }
+        Log.d("Model","Pass3");
+
+        Python py = Python.getInstance();
+        Log.d("Model","Pass4");
+
+        PyObject module = py.getModule("translate");
+        Log.d("Model","Pass5");
+
+        String x= "";
+        Log.d("Model","Pass");
+
+        try{
+//            float randomNumber = module.callAttr("create_random_number").toFloat();
+//            TextView textView = findViewById(R.id.text_view);
+//            textView.setText(Float.toString(randomNumber));
+            x = module.callAttr("word_dispatch",outputFile.getPath()).toString();
+//            TextView textView = findViewById(R.id.text_view);
+//            textView.setText(x);
+        } catch (PyException e) {
+            Toast.makeText(conText_main, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        Log.d("Model","String" + x);
+        return x;
     }
     //DEBUG
     public void playRecording() {
