@@ -47,6 +47,10 @@ public class Controller extends AppCompatActivity {
         myView.init(conText_main);
     }
 
+    void playSanta(String text){
+        model.playSanta(text);
+    }
+
     void translate(String InputText, android.view.View view){
         int spaceCounter = 0;
         String OutputText; //return
@@ -66,6 +70,14 @@ public class Controller extends AppCompatActivity {
             }
         }
         DispatchedText = Model.dispatchToWords(InputText);
+
+        String tmp = null;
+        int tmpIndex;
+        for(int i=DispatchedText.length-1; i >= 0; i--) {
+            if((tmp = DispatchedText[i]) != null) break;
+        }
+        if((tmpIndex = tmp.lastIndexOf("ホ")) != -1)
+            playSanta(tmp.substring(tmpIndex));
         switch(mode.getTranslateMode()){
 //            case NJtoSJ:
 //                OutputList = model.translateNJtoSJ(DispatchedText);

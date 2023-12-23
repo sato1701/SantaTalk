@@ -3,8 +3,10 @@ package com.kosenhacku2023.santatalk;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.SoundPool;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,6 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TimerTask;
+import java.util.Timer;
 
 public class Model extends AppCompatActivity {
     Dictionary dic;
@@ -27,6 +31,8 @@ public class Model extends AppCompatActivity {
     private final String[] permissions = {android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private boolean permissionToRecordAccepted = false;
 
+    private SoundPool soundPool;
+    int soundHo, soundHoo, soundHoo_up, soundHoo_down;
 
     private MediaRecorder mediaRecorder;
     File outputFile;
@@ -42,6 +48,26 @@ public class Model extends AppCompatActivity {
     void init(Context conText_main) {
         //TODO
         this.conText_main = conText_main;
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(2)
+                .build();
+
+        // .wav をロードしておく
+        soundHo = soundPool.load(controller, R.raw.ho, 1);
+        soundHoo = soundPool.load(controller, R.raw.hoo, 1);
+        soundHoo_up = soundPool.load(controller, R.raw.hoo_up, 1);
+        soundHoo_down = soundPool.load(controller, R.raw.hoo_down, 1);
     }
     boolean isRecording(){
         return mediaRecorder != null;
@@ -106,6 +132,11 @@ public class Model extends AppCompatActivity {
             mediaRecorder = null;
             Toast.makeText(conText_main, "録音終了", Toast.LENGTH_SHORT).show();
         }
+        new Timer().schedule(new TimerTask(){
+            public void run(){
+                playRecording();
+            }
+        }, 1000);
     }
     //DEBUG
     public void playRecording() {
@@ -116,6 +147,25 @@ public class Model extends AppCompatActivity {
             mediaPlayer.start();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void playSanta(String text){
+        switch(text){
+            case "ホ":
+                soundPool.play(soundHo, 1.0f, 1.0f, 0, 0, 1);
+                break;
+            case "ホ→":
+                soundPool.play(soundHoo, 1.0f, 1.0f, 0, 0, 1);
+                break;
+            case "ホ⤴":
+                soundPool.play(soundHoo_up, 1.0f, 1.0f, 0, 0, 1);
+                break;
+            case "ホ⤵":
+                soundPool.play(soundHoo_down, 1.0f, 1.0f, 0, 0, 1);
+                break;
+            default:
+                return;
         }
     }
 
